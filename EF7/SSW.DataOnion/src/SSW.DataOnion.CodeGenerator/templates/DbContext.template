@@ -1,0 +1,53 @@
+﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Extensions.Configuration;
+#entitiesProject#
+
+namespace #dataProject#
+{
+	public partial class #dbContextName# : DbContext
+    {
+
+        /// <summary>
+        /// Due to stupidity in Microsoft DI, this constructor has to go first
+        /// </summary>
+        /// <param name="options"></param>
+        public #dbContextName#(DbContextOptions options) : base(options)
+        {   
+        }
+
+        #region config for EF7 migrations (where we have little control over how resources are newed up)
+
+        public IConfigurationRoot Configuration { get; set; }
+
+
+        public #dbContextName#()
+        {
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("config.json");
+            Configuration = builder.Build();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (Configuration != null)
+            {
+                optionsBuilder.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
+            }
+            else
+            {
+                base.OnConfiguring(optionsBuilder);
+            }
+        }
+
+        #endregion
+
+        #dbsets#
+
+	    protected override void OnModelCreating(ModelBuilder builder)
+        {
+            modelBuilder.Configurations.AddFromAssembly(typeof(#dbContextName#).Assembly);
+			base.OnModelCreating(builder);
+        }
+    }
+}

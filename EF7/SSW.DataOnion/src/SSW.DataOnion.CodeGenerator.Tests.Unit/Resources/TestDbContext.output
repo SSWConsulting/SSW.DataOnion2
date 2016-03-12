@@ -1,0 +1,55 @@
+﻿using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using SSW.DataOnion.CodeGenerator.Tests.Unit.TestEntities;
+
+namespace SSW.DataOnion.CodeGenerator.Tests.Unit
+{
+	public partial class TestDbContext : DbContext
+    {
+
+        /// <summary>
+        /// Due to stupidity in Microsoft DI, this constructor has to go first
+        /// </summary>
+        /// <param name="options"></param>
+        public TestDbContext(DbContextOptions options) : base(options)
+        {   
+        }
+
+        #region config for EF7 migrations (where we have little control over how resources are newed up)
+
+        public IConfigurationRoot Configuration { get; set; }
+
+
+        public TestDbContext()
+        {
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("config.json");
+            Configuration = builder.Build();
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (Configuration != null)
+            {
+                optionsBuilder.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
+            }
+            else
+            {
+                base.OnConfiguring(optionsBuilder);
+            }
+        }
+
+        #endregion
+
+        public virtual DbSet<Person> Persons { get; set; }
+public virtual DbSet<School> Schools { get; set; }
+public virtual DbSet<Student> Students { get; set; }
+
+	    protected override void OnModelCreating(ModelBuilder builder)
+        {
+            modelBuilder.Configurations.AddFromAssembly(typeof(TestDbContext).Assembly);
+			base.OnModelCreating(builder);
+        }
+    }
+}

@@ -126,116 +126,117 @@ namespace SSW.DataOnion.Core
         {
             throw new NotImplementedException();
 
-            if (entities == null)
-                return;
+            //if (entities == null)
+            //    return;
 
-            if (this.parentScope == null)
-                return;
+            //if (this.parentScope == null)
+            //    return;
 
-            if (this.nested) // The parent scope uses the same DbContext instances as we do - no need to refresh anything
-                return;
+            //if (this.nested) // The parent scope uses the same DbContext instances as we do - no need to refresh anything
+            //    return;
 
-            // OK, so we must loop through all the DbContext instances in the parent scope
-            // and see if their first-level cache (i.e. their ObjectStateManager) contains the provided entities. 
-            // If they do, we'll need to force a refresh from the database. 
+            //// OK, so we must loop through all the DbContext instances in the parent scope
+            //// and see if their first-level cache (i.e. their ObjectStateManager) contains the provided entities. 
+            //// If they do, we'll need to force a refresh from the database. 
 
-            // I'm sorry for this code but it's the only way to do this with the current version of Entity Framework 
-            // as far as I can see.
+            //// I'm sorry for this code but it's the only way to do this with the current version of Entity Framework 
+            //// as far as I can see.
 
-            // What would be much nicer would be to have a way to merge all the modified / added / deleted
-            // entities from one DbContext instance to another. NHibernate has support for this sort of stuff 
-            // but EF still lags behind in this respect. But there is hope: https://entityframework.codeplex.com/workitem/864
+            //// What would be much nicer would be to have a way to merge all the modified / added / deleted
+            //// entities from one DbContext instance to another. NHibernate has support for this sort of stuff 
+            //// but EF still lags behind in this respect. But there is hope: https://entityframework.codeplex.com/workitem/864
 
-            // NOTE: DbContext implements the ObjectContext property of the IObjectContextAdapter interface explicitely.
-            // So we must cast the DbContext instances to IObjectContextAdapter in order to access their ObjectContext.
-            // This cast is completely safe.
+            //// NOTE: DbContext implements the ObjectContext property of the IObjectContextAdapter interface explicitely.
+            //// So we must cast the DbContext instances to IObjectContextAdapter in order to access their ObjectContext.
+            //// This cast is completely safe.
 
-            foreach (var contextInCurrentScope in this.dbContexts.InitializedDbContexts.Values)
-            {
-                var correspondingParentContext =
-                    this.parentScope.dbContexts.InitializedDbContexts.Values.SingleOrDefault(parentContext => parentContext.GetType() == contextInCurrentScope.GetType());
+            //foreach (var contextInCurrentScope in this.dbContexts.InitializedDbContexts.Values)
+            //{
+            //    var correspondingParentContext =
+            //        this.parentScope.dbContexts.InitializedDbContexts.Values.SingleOrDefault(parentContext => parentContext.GetType() == contextInCurrentScope.GetType());
 
-                if (correspondingParentContext == null)
-                    continue; // No DbContext of this type has been created in the parent scope yet. So no need to refresh anything for this DbContext type.
+            //    if (correspondingParentContext == null)
+            //        continue; // No DbContext of this type has been created in the parent scope yet. So no need to refresh anything for this DbContext type.
 
-                // Both our scope and the parent scope have an instance of the same DbContext type. 
-                // We can now look in the parent DbContext instance for entities that need to
-                // be refreshed.
-                foreach (var toRefresh in entities)
-                {
-                    // First, we need to find what the EntityKey for this entity is. 
-                    // We need this EntityKey in order to check if this entity has
-                    // already been loaded in the parent DbContext's first-level cache (the ObjectStateManager).
-                    var entity = contextInCurrentScope.Entry(toRefresh);
+            //    // Both our scope and the parent scope have an instance of the same DbContext type. 
+            //    // We can now look in the parent DbContext instance for entities that need to
+            //    // be refreshed.
+            //    foreach (var toRefresh in entities)
+            //    {
+            //        // First, we need to find what the EntityKey for this entity is. 
+            //        // We need this EntityKey in order to check if this entity has
+            //        // already been loaded in the parent DbContext's first-level cache (the ObjectStateManager).
+            //        var entity = contextInCurrentScope.Entry(toRefresh);
                     
 
-                    //ObjectStateEntry stateInCurrentScope;
-                    //if (contextInCurrentScope.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(toRefresh, out stateInCurrentScope))
-                    //{
-                    //    var key = stateInCurrentScope.EntityKey;
+            //        //ObjectStateEntry stateInCurrentScope;
+            //        //if (contextInCurrentScope.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(toRefresh, out stateInCurrentScope))
+            //        //{
+            //        //    var key = stateInCurrentScope.EntityKey;
 
-                    //    // Now we can see if that entity exists in the parent DbContext instance and refresh it.
-                    //    ObjectStateEntry stateInParentScope;
-                    //    if (correspondingParentContext.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(key, out stateInParentScope))
-                    //    {
-                    //        // Only refresh the entity in the parent DbContext from the database if that entity hasn't already been
-                    //        // modified in the parent. Otherwise, let the whatever concurency rules the application uses
-                    //        // apply.
-                    //        if (entity.State == EntityState.Unchanged)
-                    //        {
-                    //            correspondingParentContext.ObjectContext.Refresh(RefreshMode.StoreWins, stateInParentScope.Entity);
-                    //        }
-                    //    }
-                    //}
-                }
-            }
+            //        //    // Now we can see if that entity exists in the parent DbContext instance and refresh it.
+            //        //    ObjectStateEntry stateInParentScope;
+            //        //    if (correspondingParentContext.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(key, out stateInParentScope))
+            //        //    {
+            //        //        // Only refresh the entity in the parent DbContext from the database if that entity hasn't already been
+            //        //        // modified in the parent. Otherwise, let the whatever concurency rules the application uses
+            //        //        // apply.
+            //        //        if (entity.State == EntityState.Unchanged)
+            //        //        {
+            //        //            correspondingParentContext.ObjectContext.Refresh(RefreshMode.StoreWins, stateInParentScope.Entity);
+            //        //        }
+            //        //    }
+            //        //}
+            //    }
+            //}
         }
 
         public async Task RefreshEntitiesInParentScopeAsync(IEnumerable entities)
         {
+            await Task.FromResult(0);
             throw new NotImplementedException();
 
             // See comments in the sync version of this method for an explanation of what we're doing here.
 
-            if (entities == null)
-                return;
+            //if (entities == null)
+            //    return;
 
-            if (this.parentScope == null)
-                return;
+            //if (this.parentScope == null)
+            //    return;
 
-            if (this.nested)
-                return;
+            //if (this.nested)
+            //    return;
 
-            foreach (var contextInCurrentScope in this.dbContexts.InitializedDbContexts.Values)
-            {
-                var correspondingParentContext =
-                    this.parentScope.dbContexts.InitializedDbContexts.Values.FirstOrDefault(
-                        parentContext => parentContext.GetType() == contextInCurrentScope.GetType());
+            //foreach (var contextInCurrentScope in this.dbContexts.InitializedDbContexts.Values)
+            //{
+            //    var correspondingParentContext =
+            //        this.parentScope.dbContexts.InitializedDbContexts.Values.FirstOrDefault(
+            //            parentContext => parentContext.GetType() == contextInCurrentScope.GetType());
 
-                if (correspondingParentContext == null)
-                {
-                    continue;
-                }
+            //    if (correspondingParentContext == null)
+            //    {
+            //        continue;
+            //    }
 
-                foreach (var toRefresh in entities)
-                {
-                    if(contextInCurrentScope.Entry(toRefresh).State == EntityState.Unchanged);
-                    //ObjectStateEntry stateInCurrentScope;
-                    //if (contextInCurrentScope.ChangeTracker..GetEntityType(typeof(Blog)) ObjectContext.ObjectStateManager.TryGetObjectStateEntry(toRefresh, out stateInCurrentScope))
-                    //{
-                    //    var key = stateInCurrentScope.EntityKey;
+            //    foreach (var toRefresh in entities)
+            //    {
+            //        if(contextInCurrentScope.Entry(toRefresh).State == EntityState.Unchanged);
+            //        //ObjectStateEntry stateInCurrentScope;
+            //        //if (contextInCurrentScope.ChangeTracker..GetEntityType(typeof(Blog)) ObjectContext.ObjectStateManager.TryGetObjectStateEntry(toRefresh, out stateInCurrentScope))
+            //        //{
+            //        //    var key = stateInCurrentScope.EntityKey;
 
-                    //    ObjectStateEntry stateInParentScope;
-                    //    if (correspondingParentContext.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(key, out stateInParentScope))
-                    //    {
-                    //        if (stateInParentScope.State == EntityState.Unchanged)
-                    //        {
-                    //            await correspondingParentContext.ObjectContext.RefreshAsync(RefreshMode.StoreWins, stateInParentScope.Entity).ConfigureAwait(false);
-                    //        }
-                    //    }
-                    //}
-                }
-            }
+            //        //    ObjectStateEntry stateInParentScope;
+            //        //    if (correspondingParentContext.ObjectContext.ObjectStateManager.TryGetObjectStateEntry(key, out stateInParentScope))
+            //        //    {
+            //        //        if (stateInParentScope.State == EntityState.Unchanged)
+            //        //        {
+            //        //            await correspondingParentContext.ObjectContext.RefreshAsync(RefreshMode.StoreWins, stateInParentScope.Entity).ConfigureAwait(false);
+            //        //        }
+            //        //    }
+            //        //}
+            //    }
+            //}
         }
 
         public void Dispose()

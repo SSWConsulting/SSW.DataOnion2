@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0-*",
+  "description": "SSW.DataOnion.CodeGenerator Console Application",
+  "authors": [ "igor" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "compilationOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.Extensions.PlatformAbstractions": "1.0.0-rc1-final"
+  },
+
+  "commands": {
+    "onion": "SSW.DataOnion.CodeGenerator"
+  },
+
+  "resource": "templates/**/*.*",
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "Serilog.Framework.Logging": "1.0.0-rc1-final-10078"
+      }
+    }
+  }
+}
