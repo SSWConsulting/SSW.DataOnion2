@@ -17,7 +17,14 @@ namespace SSW.DataOnion.Core
 
         public IRepository<TEntity> Resolve<TEntity>() where TEntity : class
         {
-            return this.serviceProvider.GetService<IRepository<TEntity>>();
+            var repository = this.serviceProvider.GetService<IRepository<TEntity>>();
+
+            if (repository == null)
+            {
+                throw new ApplicationException($"Could not resolve repository for entity of type {typeof(TEntity)}");
+            }
+
+            return repository;
         }
     }
 }

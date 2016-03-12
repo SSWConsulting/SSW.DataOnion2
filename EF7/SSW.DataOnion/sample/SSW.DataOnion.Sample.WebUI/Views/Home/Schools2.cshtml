@@ -1,0 +1,31 @@
+﻿@model List<SSW.DataOnion.Sample.Entities.School>
+@{
+    ViewData["Title"] = "Schools";
+}
+<h2>Schools - using DbContext</h2>
+
+<table class="table table-responsive table-striped">
+    <thead>
+    <tr>
+        <th>
+            School Name
+        </th>
+        <th>
+            School Address
+        </th>
+        <th>
+            No of Students
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var school in Model)
+    {
+        <tr>
+            <td>@school.Name</td>
+            <td>@school.Address.FullAddress</td>
+            <td>@school.Students.Count</td>
+        </tr>
+    }
+    </tbody>
+</table>

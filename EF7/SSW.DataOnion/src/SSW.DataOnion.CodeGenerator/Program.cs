@@ -77,10 +77,10 @@ namespace SSW.DataOnion.CodeGenerator
             parser.Setup(arg => arg.DbContextName).As("name").WithDescription("\t\t\tName of your DbContext");
 
             parser.Setup(arg => arg.EntityBaseClass)
-                .As("batch")
+                .As("baseClassName")
                 .SetDefault(null)
                 .WithDescription(
-                    "\t\t\tOptional name of the base class entity if such exists. Only entites that use this base class will be used.");
+                    "\tOptional name of the base class entity if such exists. Only entites that use this base class will be used.");
 
             parser.SetupHelp("?", "help").Callback(text => logger.Information(text));
             return parser;

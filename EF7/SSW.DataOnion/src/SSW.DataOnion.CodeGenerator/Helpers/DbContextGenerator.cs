@@ -42,7 +42,7 @@ namespace SSW.DataOnion.CodeGenerator.Helpers
                     .Replace(TokenNames.DbSets,
                         string.Join(Environment.NewLine, dbSets));
             // create file
-            File.WriteAllText($"{dbContextName}.cs", template);
+            File.WriteAllText($"{dbContextName}.gen.cs", template);
         }
 
         private static IEnumerable<string> GetDbSets(ICollection<string> entityTypes)

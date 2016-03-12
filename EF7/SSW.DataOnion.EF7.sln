@@ -17,6 +17,19 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SSW.DataOnion.CodeGenerator
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SSW.DataOnion.CodeGenerator.Tests.Unit", "SSW.DataOnion\src\SSW.DataOnion.CodeGenerator.Tests.Unit\SSW.DataOnion.CodeGenerator.Tests.Unit.xproj", "{53635CD9-5FDF-4E5F-B039-2B736547A5BC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{B6656D2C-332A-4BFB-8DF7-84F1EFF31C9F}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SSW.DataOnion.Sample.Entities", "SSW.DataOnion\sample\SSW.DataOnion.Sample.Entities\SSW.DataOnion.Sample.Entities.xproj", "{EF78E68F-7B47-4B61-9560-A91098FFCFD5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SSW.DataOnion.Sample.Data", "SSW.DataOnion\sample\SSW.DataOnion.Sample.Data\SSW.DataOnion.Sample.Data.xproj", "{EAA2C7C8-0A3E-49E1-8357-63E50F130360}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SSW.DataOnion.Sample.WebUI", "SSW.DataOnion\sample\SSW.DataOnion.Sample.WebUI\SSW.DataOnion.Sample.WebUI.xproj", "{1CB2DE43-9526-4057-8B4E-8E50C668B20F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{992BD2AD-CB7D-43D1-9977-A4D733107FF6}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +60,18 @@ Global
 		{53635CD9-5FDF-4E5F-B039-2B736547A5BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53635CD9-5FDF-4E5F-B039-2B736547A5BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53635CD9-5FDF-4E5F-B039-2B736547A5BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF78E68F-7B47-4B61-9560-A91098FFCFD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF78E68F-7B47-4B61-9560-A91098FFCFD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF78E68F-7B47-4B61-9560-A91098FFCFD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF78E68F-7B47-4B61-9560-A91098FFCFD5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAA2C7C8-0A3E-49E1-8357-63E50F130360}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAA2C7C8-0A3E-49E1-8357-63E50F130360}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAA2C7C8-0A3E-49E1-8357-63E50F130360}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAA2C7C8-0A3E-49E1-8357-63E50F130360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CB2DE43-9526-4057-8B4E-8E50C668B20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CB2DE43-9526-4057-8B4E-8E50C668B20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CB2DE43-9526-4057-8B4E-8E50C668B20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CB2DE43-9526-4057-8B4E-8E50C668B20F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +83,8 @@ Global
 		{05D85A5D-AE93-442C-BF17-C9228675D446} = {354B405F-AF0C-43F4-ACEA-9CDCCCD29645}
 		{934A9C69-D2C8-4B99-B992-A0D80472EBB1} = {354B405F-AF0C-43F4-ACEA-9CDCCCD29645}
 		{53635CD9-5FDF-4E5F-B039-2B736547A5BC} = {354B405F-AF0C-43F4-ACEA-9CDCCCD29645}
+		{EF78E68F-7B47-4B61-9560-A91098FFCFD5} = {B6656D2C-332A-4BFB-8DF7-84F1EFF31C9F}
+		{EAA2C7C8-0A3E-49E1-8357-63E50F130360} = {B6656D2C-332A-4BFB-8DF7-84F1EFF31C9F}
+		{1CB2DE43-9526-4057-8B4E-8E50C668B20F} = {B6656D2C-332A-4BFB-8DF7-84F1EFF31C9F}
 	EndGlobalSection
 EndGlobal

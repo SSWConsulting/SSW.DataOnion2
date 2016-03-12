@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 
 using SSW.DataOnion.Interfaces;
 
@@ -15,7 +16,14 @@ namespace SSW.DataOnion.DependencyResolution.Autofac
 
         public IRepository<TEntity> Resolve<TEntity>() where TEntity : class
         {
-            return this.lifetimeScope.Resolve<IRepository<TEntity>>();
+            var repository = this.lifetimeScope.Resolve<IRepository<TEntity>>();
+
+            if (repository == null)
+            {
+                throw new ApplicationException($"Could not resolve repository for entity of type {typeof(TEntity)}");
+            }
+
+            return repository;
         }
     }
 }

@@ -18,14 +18,14 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
             var expectedDbContextContents =
                 ResourceReader.GetResourceContents(
                     "SSW.DataOnion.CodeGenerator.Tests.Unit.Resources.TestDbContext.output");
-            var generatedFileContent = File.ReadAllText("TestDbContext.cs");
+            var generatedFileContent = File.ReadAllText("TestDbContext.gen.cs");
             try
             {
                 Assert.Equal(expectedDbContextContents, generatedFileContent);
             }
             finally
             {
-                File.Delete("TestDbContext.cs");
+                File.Delete("TestDbContext.gen.cs");
             }
         }
     }

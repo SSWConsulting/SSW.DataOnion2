@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.DependencyInjection;
 
 using SSW.DataOnion.Core;
 using SSW.DataOnion.Core.Initializers;
@@ -18,11 +20,12 @@ namespace SSW.DataOnion.DependencyResolution.Microsoft
             serviceCollection.AddTransient<IAmbientDbContextLocator, AmbientDbContextLocator>();
             serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
             serviceCollection.AddTransient<IReadOnlyUnitOfWork, ReadOnlyUnitOfWork>();
-
             serviceCollection.AddTransient<IDbContextReadOnlyScope, DbContextReadOnlyScope>();
             serviceCollection.AddTransient<IDbContextFactory>(
                 container => new DbContextFactory(connectionString, container.GetService<IDatabaseInitializer>()));
 
+            serviceCollection.AddTransient<Func<IReadOnlyUnitOfWork>>(container => () => container.GetService<IReadOnlyUnitOfWork>());
+            serviceCollection.AddTransient<Func<IDbContextReadOnlyScope>>(container => () => container.GetService<IDbContextReadOnlyScope>());
             if (databaseInitializer == null)
             {
                 serviceCollection.AddTransient<IDatabaseInitializer, MigrateToLatestVersion>();
