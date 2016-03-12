@@ -23,7 +23,8 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "Serilog.Framework.Logging": "1.0.0-rc1-final-10078"
+        "Serilog.Framework.Logging": "1.0.0-rc1-final-10078",
+        "FluentCommandLineParser": "1.4.3"
       }
     }
   }

@@ -46,7 +46,7 @@ namespace #dataProject#
 
 	    protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Configurations.AddFromAssembly(typeof(#dbContextName#).Assembly);
+            builder.Configurations.AddFromAssembly(typeof(#dbContextName#).Assembly);
 			base.OnModelCreating(builder);
         }
     }

@@ -48,7 +48,7 @@ public virtual DbSet<Student> Students { get; set; }
 
 	    protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Configurations.AddFromAssembly(typeof(TestDbContext).Assembly);
+            builder.Configurations.AddFromAssembly(typeof(TestDbContext).Assembly);
 			base.OnModelCreating(builder);
         }
     }
