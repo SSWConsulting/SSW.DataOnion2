@@ -1,10 +1,10 @@
 {
-  "version": "1.0.0-*",
-  "description": "SSW.DataOnion.CodeGenerator Console Application",
-  "authors": [ "igor" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "version": "1.0.0-alpha-1",
+  "description": "DataOnion code generator for DbContext which helps to set it up for Migrations",
+  "authors": [ "Igor Goldobin", "Brendan Richards" ],
+  "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+  "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
+  "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
 
   "compilationOptions": {
     "emitEntryPoint": true

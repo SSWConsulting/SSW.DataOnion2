@@ -10,6 +10,7 @@ using SSW.DataOnion.Interfaces;
 using SSW.DataOnion.Sample.Data;
 using SSW.DataOnion.Sample.Data.SampleData;
 using SSW.DataOnion.Sample.Entities;
+using SSW.DataOnion.Sample.WebUI.Services.Query;
 
 namespace SSW.DataOnion.Sample.WebUI
 {
@@ -46,6 +47,7 @@ namespace SSW.DataOnion.Sample.WebUI
             services.AddTransient<IRepository<Address>, BaseRepository<Address, SchoolDbContext>>();
             services.AddTransient<IRepository<School>, BaseRepository<School, SchoolDbContext>>();
             services.AddTransient<IRepository<Student>, BaseRepository<Student, SchoolDbContext>>();
+            services.AddTransient<ISchoolQueryService, SchoolQueryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

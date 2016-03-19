@@ -11,9 +11,9 @@ namespace SSW.DataOnion.Core
 
         private readonly IRepositoryLocator repositoryLocator;
 
-        public UnitOfWork(IDbContextScope dbContextScope, IRepositoryLocator repositoryLocator)
+        public UnitOfWork(IDbContextScopeFactory dbContextScopeFactory, IRepositoryLocator repositoryLocator)
         {
-            this.dbContextScope = dbContextScope;
+            this.dbContextScope = dbContextScopeFactory.Create();
             this.repositoryLocator = repositoryLocator;
         }
 
@@ -24,12 +24,18 @@ namespace SSW.DataOnion.Core
 
         public void SaveChanges()
         {
+            this.RunBeforeSave();
             this.dbContextScope.SaveChanges();
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
+            this.RunBeforeSave();
             await this.dbContextScope.SaveChangesAsync(cancellationToken);
+        }
+
+        protected virtual void RunBeforeSave()
+        {
         }
 
         private bool disposed;

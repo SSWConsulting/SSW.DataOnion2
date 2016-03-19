@@ -15,6 +15,15 @@ namespace SSW.DataOnion.Sample.Entities.Exceptions
             throw exception;
         }
 
+        public static void AgainstNullOrEmptyGuid(Guid value, string paramName)
+        {
+            if (value != Guid.Empty) return;
+
+            var exception = new DomainException($"'{paramName}' cannot be null or empty",
+                new ArgumentNullException(paramName));
+            throw exception;
+        }
+
         public static void Against(Func<IEnumerable<string>> failureReasonsFunc, string message)
         {
             var reasons = failureReasonsFunc().ToArray();

@@ -20,11 +20,8 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "SSW.DataOnion.Core": "1.0.0-*",
-    "SSW.DataOnion.DependencyResolution.Microsoft": "1.0.0-*",
-    "SSW.DataOnion.Interfaces": "1.0.0-*",
-    "SSW.DataOnion.Sample.Data": "1.0.0-*",
-    "SSW.DataOnion.Sample.Entities": "1.0.0-*"
+    "SSW.DataOnion.DependencyResolution.Microsoft": "1.0.0-alpha-1",
+    "SSW.DataOnion.Sample.Data": "1.0.0-*"
   },
 
   "commands": {
@@ -32,7 +29,12 @@
   },
 
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {
+      "dependencies": {
+        "SSW.DataOnion.Sample.Entities": "1.0.0-*",
+        "Serilog.Framework.Logging": "1.0.0-rc1-final-10078"
+      }
+    }
   },
 
   "exclude": [

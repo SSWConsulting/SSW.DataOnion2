@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SSW.DataOnion.Core</id>
+    <version>1.0.0-alpha-1</version>
+    <authors>Igor Goldobin, Brendan Richards</authors>
+    <owners>SSW</owners>
+    <projectUrl>https://github.com/SSWConsulting/SSW.DataOnion2</projectUrl>
+    <iconUrl>http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Data Onion Core</description>
+    <releaseNotes>Set of classes that implement unit of work and repository patterns.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>UnitOfWork Repository DbContext EF</tags>
+    <dependencies>
+      <dependency id="SampleDependency" version="1.0" />
+    </dependencies>
+  </metadata>
+</package>

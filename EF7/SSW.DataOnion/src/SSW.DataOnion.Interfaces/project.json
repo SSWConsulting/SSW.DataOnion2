@@ -1,12 +1,13 @@
 {
-  "version": "1.0.0-*",
-  "description": "SSW.DataOnion.Interfaces Class Library",
-  "authors": [ "Igor" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "version": "1.0.0-alpha-1",
+  "description": "Set of Interfaces for DataOnion",
+  "authors": [ "Igor Goldobin", "Brendan Richards" ],
+  "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+  "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
+  "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
   "frameworks": {
-    "dnx451": { }
+    "dnx451": {
+    }
   },
   "dependencies": {
     "EntityFramework.Commands": "7.0.0-rc1-final",

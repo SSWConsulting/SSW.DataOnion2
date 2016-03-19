@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
 
 using SSW.DataOnion.Core;
@@ -19,6 +18,7 @@ namespace SSW.DataOnion.DependencyResolution.Microsoft
             serviceCollection.AddScoped<IRepositoryLocator, RepositoryLocator>();
             serviceCollection.AddTransient<IAmbientDbContextLocator, AmbientDbContextLocator>();
             serviceCollection.AddTransient<IUnitOfWork, UnitOfWork>();
+            serviceCollection.AddTransient<IUnitOfWorkFactory, UnitOfWorkFactory>();
             serviceCollection.AddTransient<IReadOnlyUnitOfWork, ReadOnlyUnitOfWork>();
             serviceCollection.AddTransient<IDbContextReadOnlyScope, DbContextReadOnlyScope>();
             serviceCollection.AddTransient<IDbContextFactory>(

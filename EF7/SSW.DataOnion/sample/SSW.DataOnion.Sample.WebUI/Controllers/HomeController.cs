@@ -1,22 +1,31 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Data.Entity;
 using SSW.DataOnion.Interfaces;
 using SSW.DataOnion.Sample.Data;
 using SSW.DataOnion.Sample.Entities;
+using SSW.DataOnion.Sample.Entities.Exceptions;
+using SSW.DataOnion.Sample.WebUI.Model;
+using SSW.DataOnion.Sample.WebUI.Services.Query;
 
 namespace SSW.DataOnion.Sample.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Func<IReadOnlyUnitOfWork> unitOfWorkFactory;
-        private readonly Func<IDbContextReadOnlyScope> dbContextScopeFactory;
+        private readonly IUnitOfWorkFactory unitOfWorkFactory;
+        private readonly IDbContextScopeFactory dbContextScopeFactory;
+        private readonly ISchoolQueryService schoolQueryService;
 
-        public HomeController(Func<IReadOnlyUnitOfWork> unitOfWorkFactory, Func<IDbContextReadOnlyScope> dbContextScopeFactory)
+        public HomeController(IUnitOfWorkFactory unitOfWorkFactory, IDbContextScopeFactory dbContextScopeFactory, ISchoolQueryService schoolQueryService)
         {
+            Guard.AgainstNull(unitOfWorkFactory, nameof(unitOfWorkFactory));
+            Guard.AgainstNull(dbContextScopeFactory, nameof(dbContextScopeFactory));
+
             this.unitOfWorkFactory = unitOfWorkFactory;
             this.dbContextScopeFactory = dbContextScopeFactory;
+            this.schoolQueryService = schoolQueryService;
         }
 
         public IActionResult Index()
@@ -40,7 +49,7 @@ namespace SSW.DataOnion.Sample.WebUI.Controllers
 
         public async Task<IActionResult> Schools()
         {
-            using (var unitOfWork = this.unitOfWorkFactory())
+            using (var unitOfWork = this.unitOfWorkFactory.CreateReadOnly())
             {
                 var schools =
                     await unitOfWork.Repository<School>()
@@ -49,13 +58,17 @@ namespace SSW.DataOnion.Sample.WebUI.Controllers
                         .Include(s => s.Students)
                         .ToListAsync();
 
-                return View(schools);
+                var student =
+                    this.schoolQueryService.GetStudentDetails(
+                        schools?.FirstOrDefault()?.Students?.FirstOrDefault()?.Id ?? Guid.NewGuid());
+                
+                return View(new SchoolsModel { Schools = schools, Student = student });
             }
         }
 
         public async Task<IActionResult> Schools2()
         {
-            using (var dbContextScope = this.dbContextScopeFactory())
+            using (var dbContextScope = this.dbContextScopeFactory.CreateReadOnly())
             {
                 var schools =
                     await dbContextScope.DbContexts.Get<SchoolDbContext>()
@@ -64,7 +77,11 @@ namespace SSW.DataOnion.Sample.WebUI.Controllers
                         .Include(s => s.Students)
                         .ToListAsync();
 
-                return View(schools);
+                var student =
+                    this.schoolQueryService.GetStudentDetails2(
+                        schools?.FirstOrDefault()?.Students?.FirstOrDefault()?.Id ?? Guid.NewGuid());
+
+                return View(new SchoolsModel { Schools = schools, Student = student });
             }
         }
 

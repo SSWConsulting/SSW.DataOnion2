@@ -43,6 +43,7 @@ namespace SSW.DataOnion.DependencyResolution.Autofac
             }
             
             builder.RegisterType<DbContextScope>().As<IDbContextScope>();
+            builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
             builder.RegisterType<DbContextReadOnlyScope>().As<IDbContextReadOnlyScope>();
             builder.RegisterType<AutofacRepositoryResolver>().As<IRepositoryResolver>();
             builder.RegisterType<DbContextScopeFactory>().As<IDbContextScopeFactory>().InstancePerLifetimeScope();

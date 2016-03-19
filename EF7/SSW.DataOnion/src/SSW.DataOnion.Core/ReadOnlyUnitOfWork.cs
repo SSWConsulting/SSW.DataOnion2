@@ -8,9 +8,9 @@ namespace SSW.DataOnion.Core
 
         private readonly IRepositoryLocator repositoryLocator;
 
-        public ReadOnlyUnitOfWork(IDbContextReadOnlyScope dbContextScope, IRepositoryLocator repositoryLocator)
+        public ReadOnlyUnitOfWork(IDbContextScopeFactory dbContextScopeFactory, IRepositoryLocator repositoryLocator)
         {
-            this.dbContextScope = dbContextScope;
+            this.dbContextScope = dbContextScopeFactory.CreateReadOnly();
             this.repositoryLocator = repositoryLocator;
         }
 

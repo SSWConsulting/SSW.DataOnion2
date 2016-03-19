@@ -1,4 +1,4 @@
-﻿@model List<SSW.DataOnion.Sample.Entities.School>
+﻿@model SSW.DataOnion.Sample.WebUI.Model.SchoolsModel
 @{
     ViewData["Title"] = "Schools";
 }
@@ -19,7 +19,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var school in Model)
+    @foreach (var school in Model.Schools)
     {
         <tr>
             <td>@school.Name</td>
@@ -29,3 +29,23 @@
     }
     </tbody>
 </table>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        First Student
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="control-label" for="firstName">First name:</label>
+            <span name="firstName" id="firstName" class="form-control-static">@Model.Student.FirstName</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="lastName">Last name:</label>
+            <span name="lastName" id="lastName" class="form-control-static">@Model.Student.LastName</span>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="id">Id:</label>
+            <span name="id" id="id" class="form-control-static">@Model.Student.Id</span>
+        </div>
+    </div>
+</div>

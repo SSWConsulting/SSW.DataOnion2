@@ -21,6 +21,6 @@
     "test": "xunit.runner.dnx"
   },
   "dependencies": {
-    "SSW.DataOnion.CodeGenerator": "1.0.0-*"
+    "SSW.DataOnion.CodeGenerator": "1.0.0-alpha-1"
   }
 } 

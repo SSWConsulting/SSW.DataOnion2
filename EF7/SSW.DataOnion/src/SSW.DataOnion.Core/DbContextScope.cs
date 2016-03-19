@@ -22,7 +22,7 @@ namespace SSW.DataOnion.Core
         private readonly DbContextScope parentScope;
         private readonly DbContextCollection dbContexts;
 
-        public IDbContextCollection DbContexts { get { return this.dbContexts; } }
+        public IDbContextCollection DbContexts => this.dbContexts;
 
         public DbContextScope(IDbContextFactory dbContextFactory = null) :
             this(joiningOption: DbContextScopeOption.JoinExisting, readOnly: false, isolationLevel: null, dbContextFactory: dbContextFactory)
@@ -73,6 +73,7 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
+                this.RunBeforeSave();
                 c = this.CommitInternal();
             }
 
@@ -100,11 +101,16 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
+                this.RunBeforeSave();
                 c = await this.CommitInternalAsync(cancelToken).ConfigureAwait(false);
             }
 
             this.completed = true;
             return c;
+        }
+
+        protected virtual void RunBeforeSave()
+        {
         }
 
         private int CommitInternal()
@@ -421,11 +427,11 @@ Stack Trace:
         // disposing it, our ConcurrentDictionary would still have a reference to it, preventing
         // the GC from being able to collect it => leak. With a ConditionalWeakTable, we don't hold a reference
         // to the DbContextScope instances we store in there, allowing them to get GCed.
-        // The doc for ConditionalWeakTable isn't the best. This SO anser does a good job at explaining what 
+        // The doc for ConditionalWeakTable isn't the best. This SO answer does a good job at explaining what 
         // it does: http://stackoverflow.com/a/18613811
         private static readonly ConditionalWeakTable<InstanceIdentifier, DbContextScope> DbContextScopeInstances = new ConditionalWeakTable<InstanceIdentifier, DbContextScope>();
 
-        private InstanceIdentifier _instanceIdentifier = new InstanceIdentifier();
+        private InstanceIdentifier instanceIdentifier = new InstanceIdentifier();
 
         /// <summary>
         /// Makes the provided 'dbContextScope' available as the the ambient scope via the CallContext.
@@ -437,14 +443,14 @@ Stack Trace:
 
             var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
 
-            if (current == newAmbientScope._instanceIdentifier)
+            if (current == newAmbientScope.instanceIdentifier)
                 return;
 
             // Store the new scope's instance identifier in the CallContext, making it the ambient scope
-            CallContext.LogicalSetData(AmbientDbContextScopeKey, newAmbientScope._instanceIdentifier);
+            CallContext.LogicalSetData(AmbientDbContextScopeKey, newAmbientScope.instanceIdentifier);
 
             // Keep track of this instance (or do nothing if we're already tracking it)
-            DbContextScopeInstances.GetValue(newAmbientScope._instanceIdentifier, key => newAmbientScope);
+            DbContextScopeInstances.GetValue(newAmbientScope.instanceIdentifier, key => newAmbientScope);
         }
 
         /// <summary>
