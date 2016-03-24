@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Entity;
+﻿using System;
+using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Storage.Internal;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,9 @@ namespace SSW.DataOnion.Core
         /// <param name="databaseInitializer">Database initializer</param>
         public DbContextFactory(string connectionString, IDatabaseInitializer databaseInitializer)
         {
+            Guard.AgainstNull(databaseInitializer, nameof(databaseInitializer));
+            Guard.AgainstNullOrEmptyString(connectionString, nameof(connectionString));
+
             this.connectionString = connectionString;
             this.databaseInitializer = databaseInitializer;
         }

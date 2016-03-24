@@ -6,9 +6,9 @@ namespace SSW.DataOnion.Core
 {
     public class DbContextReadOnlyScope : IDbContextReadOnlyScope
     {
-        private DbContextScope _internalScope;
+        private DbContextScope internalScope;
 
-        public IDbContextCollection DbContexts { get { return this._internalScope.DbContexts; } }
+        public IDbContextCollection DbContexts { get { return this.internalScope.DbContexts; } }
 
         public DbContextReadOnlyScope(IDbContextFactory dbContextFactory = null)
             : this(joiningOption: DbContextScopeOption.JoinExisting, isolationLevel: null, dbContextFactory: dbContextFactory)
@@ -20,12 +20,12 @@ namespace SSW.DataOnion.Core
 
         public DbContextReadOnlyScope(DbContextScopeOption joiningOption, IsolationLevel? isolationLevel, IDbContextFactory dbContextFactory = null)
         {
-            this._internalScope = new DbContextScope(joiningOption: joiningOption, readOnly: true, isolationLevel: isolationLevel, dbContextFactory: dbContextFactory);
+            this.internalScope = new DbContextScope(joiningOption: joiningOption, readOnly: true, isolationLevel: isolationLevel, dbContextFactory: dbContextFactory);
         }
 
         public void Dispose()
         {
-            this._internalScope.Dispose();
+            this.internalScope.Dispose();
         }
     }
 }
