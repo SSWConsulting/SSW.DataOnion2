@@ -3,69 +3,89 @@
 ### If using Microsoft out-of-the box DI container read this section
 
 1. Add **SSW.DataOnion.DependencyResolution.Microsoft** nuget package to your UI project:
-    ```sh
+    
+	```sh
     Install-Package SSW.DataOnion.DependencyResolution.Microsoft –Pre
     ```
+
 2. Open your **Startup.cs** file and go to ConfigureServices method
 3. Add the following code:
     
     To create database automatically if it doesn't exist
-    ```sh
+    
+	```sh
     var databaseInitializer = new CreateDatabaseIfNotExists(newSampleDataSeeder());
     ```
-    To always drop and re-create the database
-    ```sh
+    
+	To always drop and re-create the database
+    
+	```sh
     var databaseInitializer = new DropCreateDatabaseAlways(newSampleDataSeeder());
     ```
-    To use migrations
-    ```sh
+    
+	To use migrations
+    
+	```sh
     var databaseInitializer = new MigrateToLatestVersion(newSampleDataSeeder());
     ```
     _Note: data seeder parameter is optional. To create data seeder just implements_ **IDataSeeder** _interface._
     
     Now add this line to activate DataOnion:
-    ```sh
+    
+	```sh
     services.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
 4. Register repositories for each entity that you are going to use (only if you want to use repository pattern):
-    ```sh
+    
+	```sh
     services.AddTransient<IRepository<YourEntityName>, BaseRepository< YourEntityName, YourDbContextName>>();
     ```
+
 ### If using Autofac DI container read this section
 
-1. Add **SSW.DataOnion.DependencyResolution.Autofac** nuget package to your UI project :
-    ```sh
+1. Add **SSW.DataOnion.DependencyResolution.Autofac** nuget package to your UI project:
+    
+	```sh
     Install-Package SSW.DataOnion.DependencyResolution.Autofac –Pre
     ```
+
 2. Open your **Startup.cs** file or file used to configure your Autofac contrainer
 3. Add the following code:
 
     To create database automatically if it doesn't exist
+
     ```sh
     var databaseInitializer = newCreateDatabaseIfNotExists(newSampleDataSeeder());
     ```
+
     To always drop and re-create the database
+
     ```sh
     var databaseInitializer = newDropCreateDatabaseAlways(newSampleDataSeeder());
     ```
-    To use migrations
-    ```sh
+    
+	To use migrations
+    
+	```sh
     var databaseInitializer = newMigrateToLatestVersion(newSampleDataSeeder());
     ```
     _Note: data seeder parameter is optional. To create data seeder just implements_ **IDataSeeder** _interface._
     
     Now call AddDataOnion extension method on your Autofac container builder:
-    ```sh
+    
+	```sh
     builder.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
 4. Register repositories for each entity that you are going to use (only if you want to use repository pattern):
-    ```sh
+    
+	```sh
     buider.Register<BaseRepository<YourEntityName,YourDbContextName>>().As< IRepository<YourEntityName>>();
     ```
+
 Congratulations, you are now ready to use DataOnion2!!!
 
 ## Using Data Onion
