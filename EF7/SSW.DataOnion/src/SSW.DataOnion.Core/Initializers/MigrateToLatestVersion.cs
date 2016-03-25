@@ -92,6 +92,16 @@ namespace SSW.DataOnion.Core.Initializers
             try
             {
                 dbContext.Database.OpenConnection();
+                using (var connection = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
+                {
+                    connection.Open();
+                    var command = new SqlCommand("SELECT * FROM information_schema.tables where TABLE_SCHEMA != 'sys'", connection);
+                    var reader = command.ExecuteReader();
+                    if (!reader.HasRows)
+                    {
+                        return false;
+                    }
+                }
                 return true;
             }
             catch (SqlException ex)
