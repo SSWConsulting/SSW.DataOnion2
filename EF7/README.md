@@ -13,33 +13,33 @@
     
     To create database automatically if it doesn't exist
     
-	```sh
-    var databaseInitializer = new CreateDatabaseIfNotExists(newSampleDataSeeder());
+	```cs
+    var databaseInitializer = new CreateDatabaseIfNotExists(new SampleDataSeeder());
     ```
     
 	To always drop and re-create the database
     
-	```sh
-    var databaseInitializer = new DropCreateDatabaseAlways(newSampleDataSeeder());
+	```cs
+    var databaseInitializer = new DropCreateDatabaseAlways(new SampleDataSeeder());
     ```
     
 	To use migrations
     
-	```sh
-    var databaseInitializer = new MigrateToLatestVersion(newSampleDataSeeder());
+	```cs
+    var databaseInitializer = new MigrateToLatestVersion(new SampleDataSeeder());
     ```
     _Note: data seeder parameter is optional. To create data seeder just implements_ **IDataSeeder** _interface._
     
     Now add this line to activate DataOnion:
     
-	```sh
+	```cs
     services.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
 4. Register repositories for each entity that you are going to use (only if you want to use repository pattern):
     
-	```sh
+	```cs
     services.AddTransient<IRepository<YourEntityName>, BaseRepository< YourEntityName, YourDbContextName>>();
     ```
 
@@ -56,34 +56,34 @@
 
     To create database automatically if it doesn't exist
 
-    ```sh
-    var databaseInitializer = newCreateDatabaseIfNotExists(newSampleDataSeeder());
+    ```cs
+    var databaseInitializer = newCreateDatabaseIfNotExists(new SampleDataSeeder());
     ```
 
     To always drop and re-create the database
 
-    ```sh
-    var databaseInitializer = newDropCreateDatabaseAlways(newSampleDataSeeder());
+    ```cs
+    var databaseInitializer = newDropCreateDatabaseAlways(new SampleDataSeeder());
     ```
     
 	To use migrations
     
-	```sh
-    var databaseInitializer = newMigrateToLatestVersion(newSampleDataSeeder());
+	```cs
+    var databaseInitializer = newMigrateToLatestVersion(new SampleDataSeeder());
     ```
     _Note: data seeder parameter is optional. To create data seeder just implements_ **IDataSeeder** _interface._
     
     Now call AddDataOnion extension method on your Autofac container builder:
     
-	```sh
+	```cs
     builder.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
 4. Register repositories for each entity that you are going to use (only if you want to use repository pattern):
     
-	```sh
-    buider.Register<BaseRepository<YourEntityName,YourDbContextName>>().As< IRepository<YourEntityName>>();
+	```cs
+    buider.Register<BaseRepository<YourEntityName, YourDbContextName>>().As<IRepository<YourEntityName>>();
     ```
 
 Congratulations, you are now ready to use DataOnion2!!!
@@ -99,7 +99,7 @@ Data onion supports two main DbContext interactions:
     When you start business transaction use factory to create **DbContextScope** and resolve **DbContext** for you. At the end of business transaction, call **SaveChanges** or **SaveChangesAsync** on **DbContextScope** instance.
     
     Sample:
-    ```sh
+    ```cs
     public HomeController(IDbContextScopeFactory dbContextScopeFactory)
     {
         this.dbContextScopeFactory = dbContextScopeFactory;
@@ -123,7 +123,7 @@ Data onion supports two main DbContext interactions:
     When you start business transaction use factory to create **UnitOfWork**. At the end of business transaction, call **SaveChanges** or **SaveChangesAsync** on **Unitofwork** instance
 
     Sample:
-    ```sh
+    ```cs
     public HomeController(IUnitOfWorkFactory unitOfWorkFactory)
     {
         this.unitOfWorkFactory = unitOfWorkFactory;
@@ -140,6 +140,7 @@ Data onion supports two main DbContext interactions:
                         .Include(s => s.Students)
                         .ToListAsync();
     ```
+
 ### Types of DbContext Scope or UnitOfWork
 
 DataOnion also support two types of DbContextScope or UnitOfWork:
@@ -148,8 +149,10 @@ DataOnion also support two types of DbContextScope or UnitOfWork:
 2. ReadOnly - optimized for queries only with tracking disabled.
 
 For more details see sample app: [https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample](https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample)
-    
+
+
 ## Generating DbContext (Optional)
+
 
 This step is optional. DbContext partial class will be automatically generated based on your **Domain Entities**. Generated db context will be properly configured for EF Migrations and will contain code to locate and map fluent configurations for entities (EF 7/Core1 is missing automatic assembly locator for entity configuration files).
 
@@ -160,23 +163,23 @@ This step is optional. DbContext partial class will be automatically generated b
     ```
 2. Register custom data onion command in your  **project.son**  file:
 
-    ```sh
+    ```cs
     "commands": {
         "onion": "SSW.DataOnion.CodeGenerator"
     }
     ```
 3. In console, navigate to your data project root folder and type:
-    ```sh
+    ```cs
     dnx onion —help
     ```
     List of available parameters will be shown.
 
 4. Run the following command to generate your partial DbContext:
-    ```sh
+    ```cs
     dnx onion --entitiesNamespace "YourEntitiesProjectNamespace" --dataNamespace " YourDataProjectNamespace " --entitiesDll "path to your entities project dll" --name "NameOfYourDbContext" --baseClassName "OptionalEntityBaseClass"
     ```
     For sample project, the following command was used (https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample):
-    ```sh
+    ```cs
     dnx onion --entitiesNamespace "SSW.DataOnion.Sample.Entities" --dataNamespace "SSW.DataOnion.Sample.Data" --entitiesDll "..\artifacts\bin\SSW.DataOnion.Sample.Entities\Debug\dnx451\SSW.DataOnion.Sample.Entities.dll" --name "SchoolDbContext" --baseClassName "AggregateRoot"
     ```
     Once this command is run, you should see **NameOfYourDbContext.gen.cs** partial class generated.
@@ -185,7 +188,7 @@ This step is optional. DbContext partial class will be automatically generated b
 6. Optional. If using EF migrations, add config.json file (you can give it a different name, just make sure you update it in **NameOfYourDbContext.gen.cs file**), which contains connection string for your database. This will be used by EF Migrations to generate migrations.
 
     Sample config.json:
-    ```sh
+    ```cs
     {
         "Data": {
             "DefaultConnection": {
