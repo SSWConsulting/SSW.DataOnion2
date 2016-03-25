@@ -148,7 +148,7 @@ DataOnion also support two types of DbContextScope or UnitOfWork:
 1. Full CRUD - with tracking and caching
 2. ReadOnly - optimized for queries only with tracking disabled.
 
-For more details see sample app: [https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample](https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample)
+For more details see sample app: [https://github.com/SSWConsulting/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample](https://github.com/SSWConsulting/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample)
 
 
 ## Generating DbContext (Optional)
@@ -178,7 +178,7 @@ This step is optional. DbContext partial class will be automatically generated b
     ```cs
     dnx onion --entitiesNamespace "YourEntitiesProjectNamespace" --dataNamespace " YourDataProjectNamespace " --entitiesDll "path to your entities project dll" --name "NameOfYourDbContext" --baseClassName "OptionalEntityBaseClass"
     ```
-    For sample project, the following command was used (https://github.com/fenix2222/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample):
+    For sample project, the following command was used (https://github.com/SSWConsulting/SSW.DataOnion2/tree/master/EF7/SSW.DataOnion/sample):
     ```cs
     dnx onion --entitiesNamespace "SSW.DataOnion.Sample.Entities" --dataNamespace "SSW.DataOnion.Sample.Data" --entitiesDll "..\artifacts\bin\SSW.DataOnion.Sample.Entities\Debug\dnx451\SSW.DataOnion.Sample.Entities.dll" --name "SchoolDbContext" --baseClassName "AggregateRoot"
     ```
