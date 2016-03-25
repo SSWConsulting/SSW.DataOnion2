@@ -40,7 +40,7 @@
 4. Register repositories for each entity that you are going to use (only if you want to use repository pattern):
     
 	```cs
-    services.AddTransient<IRepository<YourEntityName>, BaseRepository< YourEntityName, YourDbContextName>>();
+    services.AddTransient<IRepository<YourEntityName>, BaseRepository<YourEntityName, YourDbContextName>>();
     ```
 
 ### If using Autofac DI container read this section
