@@ -1,0 +1,33 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SSW.DataOnion.Core.Tests.Unit Class Library",
+  "authors": [ "igor" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "dependencies": {
+    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "EntityFramework.Relational": "7.0.0-rc1-final",
+    "EntityFramework.Core": "7.0.0-rc1-final",
+    "SSW.DataOnion.Interfaces": "1.0.0-*",
+    "SSW.DataOnion.Core": "1.0.0-*",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+    
+  },
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "xunit.runner.dnx": "2.1.0-rc1-build204",
+        "xunit": "2.1.0",
+        "xunit.runner.visualstudio": "2.1.0",
+        "Moq": "4.2.1510.2205",
+        "FluentAssertions": "4.2.2"
+      }
+    }
+  },
+
+  "commands": {
+    "test": "xunit.runner.dnx"
+  }
+}

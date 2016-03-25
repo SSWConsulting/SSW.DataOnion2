@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0-*",
+  "description": "SSW.DataOnion.Sample.Data Class Library",
+  "authors": [ "igor" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "dependencies": {
+    "EntityFramework.Commands": "7.0.0-rc1-final",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "EntityFramework.Relational": "7.0.0-rc1-final",
+    "EntityFramework.Core": "7.0.0-rc1-final",
+    "SSW.DataOnion.CodeGenerator": "1.0.0-alpha-1",
+    "SSW.DataOnion.Sample.Entities": "1.0.0-*",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
+    "SSW.DataOnion.Interfaces": "1.0.0-alpha-1"
+  },
+
+  "commands": {
+    "onion": "SSW.DataOnion.CodeGenerator",
+    "ef": "EntityFramework.Commands"
+  },
+
+  "frameworks": {
+    "dnx451": {
+    }
+  }
+}

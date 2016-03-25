@@ -1,0 +1,13 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "SSW.DataOnion.Sample.Entities Class Library",
+  "authors": [ "igor" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "dnx451": {
+    }
+  },
+  "dependencies": { }
+}

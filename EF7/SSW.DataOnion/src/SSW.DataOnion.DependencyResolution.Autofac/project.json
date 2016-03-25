@@ -1,0 +1,18 @@
+﻿{
+  "version": "1.0.0-alpha-1",
+  "description": "Autofac Resolver Extensions for DataOnion",
+  "authors": [ "Igor Goldobin", "Brendan Richards" ],
+  "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+  "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
+  "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+
+  "frameworks": {
+    "dnx451": {
+      "dependencies": {
+        "Autofac": "4.0.0-rc1-177",
+        "SSW.DataOnion.Core": "1.0.0-alpha-1",
+        "SSW.DataOnion.Interfaces": "1.0.0-alpha-1"
+      }
+    }
+  }
+}
