@@ -8,8 +8,15 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "SSW.DataOnion.Core": "1.0.0-alpha-1",
-        "SSW.DataOnion.Interfaces": "1.0.0-alpha-1",
+        "SSW.DataOnion.Core": "1.0.0-alpha-4",
+        "SSW.DataOnion.Interfaces": "1.0.0-alpha-4",
+        "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
+      }
+    },
+    "dnxcore50": {
+      "dependencies": {
+        "SSW.DataOnion.Core": "1.0.0-alpha-4",
+        "SSW.DataOnion.Interfaces": "1.0.0-alpha-4",
         "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc1-final"
       }
     }

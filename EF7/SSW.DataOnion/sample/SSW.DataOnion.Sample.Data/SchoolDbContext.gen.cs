@@ -58,7 +58,12 @@ namespace SSW.DataOnion.Sample.Data
             var mappingInterface = typeof(IEntityTypeConfiguration<>);
 
             // Types that do entity mapping
-            var mappingTypes = Assembly.GetAssembly(typeof(SchoolDbContext)).GetTypes()
+#if DNX451
+            var mappingTypes = typeof(SchoolDbContext).Assembly.GetTypes()
+#endif
+#if DNXCORE50
+            var mappingTypes = typeof(SchoolDbContext).GetTypeInfo().Assembly.GetTypes()
+#endif
                 .Where(x => x.GetInterfaces().Any(y => y.GetTypeInfo().IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));
 
             // Get the generic Entity method of the ModelBuilder type
