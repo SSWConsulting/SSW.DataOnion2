@@ -91,7 +91,7 @@ namespace SSW.DataOnion.Core.Initializers
         {
             try
             {
-                dbContext.Database.OpenConnection();
+                // Check if database connnection can be made and if database has any non-system tables
                 using (var connection = new SqlConnection(dbContext.Database.GetDbConnection().ConnectionString))
                 {
                     connection.Open();
