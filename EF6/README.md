@@ -51,6 +51,7 @@ Congratulations, you are now ready to use DataOnion2!!!
     
 	```sh
     Install-Package SSW.DataOnion.Core.EF6 –Pre
+	```
 
 2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
 

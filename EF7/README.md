@@ -91,6 +91,7 @@
     
 	```sh
     Install-Package SSW.DataOnion.Core –Pre
+	```
 
 2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
 
