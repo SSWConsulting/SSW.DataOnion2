@@ -42,7 +42,9 @@ namespace SSW.DataOnion.Sample.WebUI
             services.AddMvc();
 
             var databaseInitializer = new MigrateToLatestVersion(new SampleDataSeeder());
-            services.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
+            services.AddDataOnion(new DbContextConfig(
+                this.Configuration["Data:DefaultConnection:ConnectionString"],
+                typeof (SchoolDbContext), databaseInitializer));
 
             services.AddTransient<IRepository<Address>, BaseRepository<Address, SchoolDbContext>>();
             services.AddTransient<IRepository<School>, BaseRepository<School, SchoolDbContext>>();

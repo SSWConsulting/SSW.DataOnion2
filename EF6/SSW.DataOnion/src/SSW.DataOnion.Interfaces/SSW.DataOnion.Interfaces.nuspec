@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package>
+	<metadata>
+		<id>SSW.DataOnion.Interfaces.EF6</id>
+		<projectUrl>http://www.sswdataonion.com</projectUrl>
+		<version>1.0.0-alpha-1</version>
+		<title>SSW.DataOnion.Interfaces.EF6</title>
+		<authors>Igor Goldobin, Brendan Richards</authors>
+		<iconUrl>http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png</iconUrl>
+		<owners>SSW</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Base interfaces for DataOnion. This is a separate, small package allowing DataOnion to be added to client projects without all the implementation dependencies. To contribute or for more information visit https://github.com/SSWConsulting/SSW.DataOnion2 </description>
+		<copyright />
+		<language>en-AU</language>
+		<tags>EF</tags>
+	</metadata>
+</package>

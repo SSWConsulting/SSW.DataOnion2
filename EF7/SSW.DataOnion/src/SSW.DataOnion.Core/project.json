@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-alpha-2",
+  "version": "1.0.0-alpha-5",
   "description": "Main DataOnion implementation, including AmbientDbContext, UnitOfWork, Repositories, DataInitialisers etc.",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
   "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
@@ -18,8 +18,19 @@
   "frameworks": {
     "dnx451": {
       "dependencies": {
-        "Serilog": "1.5.12",
-        "SSW.DataOnion.Interfaces": "1.0.0-alpha-1"
+        "FluentCommandLineParser": "1.4.3",
+        "Serilog": "2.0.0-beta-523",
+        "SSW.DataOnion.Interfaces": "1.0.0-alpha-4",
+        "System.Runtime": "4.0.21-beta-23516"
+      }
+    },
+    "dnxcore50": {
+      "dependencies": {
+        "Serilog": "2.0.0-beta-523",
+        "SSW.DataOnion.Interfaces": "1.0.0-alpha-4",
+        "System.Dynamic.Runtime": "4.0.11-beta-23516",
+        "System.Runtime": "4.0.21-beta-23516",
+        "System.Runtime.Extensions": "4.0.11-beta-23516"
       }
     }
   }

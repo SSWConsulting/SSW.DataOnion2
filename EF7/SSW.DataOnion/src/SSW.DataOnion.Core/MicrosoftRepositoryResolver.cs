@@ -21,7 +21,7 @@ namespace SSW.DataOnion.Core
 
             if (repository == null)
             {
-                throw new ApplicationException($"Could not resolve repository for entity of type {typeof(TEntity)}");
+                throw new DataOnionException($"Could not resolve repository for entity of type {typeof(TEntity)}");
             }
 
             return repository;

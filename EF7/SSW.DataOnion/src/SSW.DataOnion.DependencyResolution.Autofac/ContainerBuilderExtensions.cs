@@ -1,4 +1,6 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
+using SSW.DataOnion.Core;
 using SSW.DataOnion.Interfaces;
 
 namespace SSW.DataOnion.DependencyResolution.Autofac
@@ -6,11 +8,18 @@ namespace SSW.DataOnion.DependencyResolution.Autofac
     public static class ContainerBuilderExtensions
     {
         public static void AddDataOnion(
-            this ContainerBuilder builder, 
-            string connectionString,
-            IDatabaseInitializer databaseInitializer = null)
+            this ContainerBuilder builder,
+            params DbContextConfig[] dbContextConfigs)
         {
-            builder.RegisterModule(new DataModule(connectionString, databaseInitializer));
+            builder.RegisterModule(new DataModule(dbContextConfigs));
+        }
+
+        public static void AddDataOnion(
+            this ContainerBuilder builder,
+            string connectionString,
+            Type dbContextType)
+        {
+            builder.RegisterModule(new DataModule(connectionString, dbContextType));
         }
     }
 }

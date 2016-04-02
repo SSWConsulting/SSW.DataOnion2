@@ -3,12 +3,15 @@ using System.Collections;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
+#if DNX451
 using System.Runtime.Remoting.Messaging;
+#endif
 using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Data.Entity;
-
+using Microsoft.Extensions.PlatformAbstractions;
+using Serilog;
 using SSW.DataOnion.Interfaces;
 
 namespace SSW.DataOnion.Core
@@ -23,6 +26,8 @@ namespace SSW.DataOnion.Core
         private readonly DbContextCollection dbContexts;
 
         public IDbContextCollection DbContexts => this.dbContexts;
+
+        private IRuntimeEnvironment runtime;
 
         public DbContextScope(IDbContextFactory dbContextFactory = null) :
             this(joiningOption: DbContextScopeOption.JoinExisting, readOnly: false, isolationLevel: null, dbContextFactory: dbContextFactory)
@@ -333,10 +338,8 @@ In order to fix this:
 1) Look at the stack trace below - this is the stack trace of the parallel task in question.
 2) Find out where this parallel task was created.
 3) Change the code so that the ambient context is suppressed before the parallel task is created. You can do this with IDbContextScopeFactory.SuppressAmbientContext() (wrap the parallel task creation code block in this). 
-Stack Trace:
-" + Environment.StackTrace;
-
-                    System.Diagnostics.Debug.WriteLine(message);
+";
+                    Log.Logger.Debug(message);
                 }
                 else
                 {
@@ -348,7 +351,7 @@ Stack Trace:
 
         }
 
-        #region Ambient Context Logic
+#region Ambient Context Logic
 
         /*
          * This is where all the magic happens. And there is not much of it.
@@ -429,9 +432,16 @@ Stack Trace:
         // to the DbContextScope instances we store in there, allowing them to get GCed.
         // The doc for ConditionalWeakTable isn't the best. This SO answer does a good job at explaining what 
         // it does: http://stackoverflow.com/a/18613811
+#if DNX451
         private static readonly ConditionalWeakTable<InstanceIdentifier, DbContextScope> DbContextScopeInstances = new ConditionalWeakTable<InstanceIdentifier, DbContextScope>();
 
         private InstanceIdentifier instanceIdentifier = new InstanceIdentifier();
+#endif
+#if DNXCORE50
+        private static readonly ConditionalWeakTable<string, DbContextScope> DbContextScopeInstances = new ConditionalWeakTable<string, DbContextScope>();
+
+        private static AsyncLocal<string> CallContext = new AsyncLocal<string>();
+#endif
 
         /// <summary>
         /// Makes the provided 'dbContextScope' available as the the ambient scope via the CallContext.
@@ -440,7 +450,7 @@ Stack Trace:
         {
             if (newAmbientScope == null)
                 throw new ArgumentNullException("newAmbientScope");
-
+#if DNX451
             var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
 
             if (current == newAmbientScope.instanceIdentifier)
@@ -451,6 +461,19 @@ Stack Trace:
 
             // Keep track of this instance (or do nothing if we're already tracking it)
             DbContextScopeInstances.GetValue(newAmbientScope.instanceIdentifier, key => newAmbientScope);
+#endif
+#if DNXCORE50
+            var current = CallContext.Value;
+
+            if (current == AmbientDbContextScopeKey)
+                return;
+
+            // Store the new scope's instance identifier in the CallContext, making it the ambient scope
+            CallContext.Value = AmbientDbContextScopeKey;
+
+            // Keep track of this instance (or do nothing if we're already tracking it)
+            DbContextScopeInstances.GetValue(CallContext.Value, key => newAmbientScope);
+#endif
         }
 
         /// <summary>
@@ -459,6 +482,7 @@ Stack Trace:
         /// </summary>
         internal static void RemoveAmbientScope()
         {
+#if DNX451
             var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
             CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
 
@@ -467,6 +491,17 @@ Stack Trace:
             {
                 DbContextScopeInstances.Remove(current);
             }
+#endif
+#if DNXCORE50
+            var current = CallContext.Value;
+            CallContext.Value = null;
+
+            // If there was an ambient scope, we can stop tracking it now
+            if (current != null)
+            {
+                DbContextScopeInstances.Remove(current);
+            }
+#endif
         }
 
         /// <summary>
@@ -475,7 +510,13 @@ Stack Trace:
         /// </summary>
         internal static void HideAmbientScope()
         {
+#if DNX451
             CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
+#endif
+#if DNXCORE50
+            CallContext.Value = null;
+#endif
+
         }
 
         /// <summary>
@@ -483,7 +524,9 @@ Stack Trace:
         /// </summary>
         internal static DbContextScope GetAmbientScope()
         {
+
             // Retrieve the identifier of the ambient scope (if any)
+#if DNX451
             var instanceIdentifier = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
             if (instanceIdentifier == null)
                 return null; // Either no ambient context has been set or we've crossed an app domain boundary and have (intentionally) lost the ambient context
@@ -492,6 +535,17 @@ Stack Trace:
             DbContextScope ambientScope;
             if (DbContextScopeInstances.TryGetValue(instanceIdentifier, out ambientScope))
                 return ambientScope;
+#endif
+#if DNXCORE50
+           var instanceIdentifier = CallContext.Value;
+            if (instanceIdentifier == null)
+                return null; // Either no ambient context has been set or we've crossed an app domain boundary and have (intentionally) lost the ambient context
+
+            // Retrieve the DbContextScope instance corresponding to this identifier
+            DbContextScope ambientScope;
+            if (DbContextScopeInstances.TryGetValue(instanceIdentifier, out ambientScope))
+                return ambientScope;
+#endif
 
             // We have an instance identifier in the CallContext but no corresponding instance
             // in our DbContextScopeInstances table. This should never happen! The only place where
@@ -510,9 +564,9 @@ Stack Trace:
             return null;
         }
 
-        #endregion
+#endregion
     }
-
+#if DNX451
     /*
      * The idea of using an object reference as our instance identifier 
      * instead of simply using a unique string (which we could have generated
@@ -524,4 +578,5 @@ Stack Trace:
     */
     internal class InstanceIdentifier : MarshalByRefObject
     { }
+#endif
 }

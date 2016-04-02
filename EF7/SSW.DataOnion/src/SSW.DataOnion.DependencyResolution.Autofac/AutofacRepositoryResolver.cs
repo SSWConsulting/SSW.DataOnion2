@@ -1,6 +1,6 @@
 ﻿using System;
 using Autofac;
-
+using SSW.DataOnion.Core;
 using SSW.DataOnion.Interfaces;
 
 namespace SSW.DataOnion.DependencyResolution.Autofac
@@ -20,7 +20,7 @@ namespace SSW.DataOnion.DependencyResolution.Autofac
 
             if (repository == null)
             {
-                throw new ApplicationException($"Could not resolve repository for entity of type {typeof(TEntity)}");
+                throw new DataOnionException($"Could not resolve repository for entity of type {typeof(TEntity)}");
             }
 
             return repository;
