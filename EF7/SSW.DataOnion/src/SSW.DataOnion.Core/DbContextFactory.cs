@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Infrastructure;
 using Microsoft.Data.Entity.Storage.Internal;
@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Serilog;
 
 using SSW.DataOnion.Interfaces;
+using System.Linq;
 
 namespace SSW.DataOnion.Core
 {
@@ -19,24 +20,22 @@ namespace SSW.DataOnion.Core
     {
         private readonly ILogger logger = Log.ForContext<DbContextFactory>();
 
-        private readonly string connectionString;
-
-        private readonly IDatabaseInitializer databaseInitializer;
+        private readonly DbContextConfig[] dbContextConfigs;
 
         private static bool hasSetInitializer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DbContextFactory"/> class.
         /// </summary>
-        /// <param name="connectionString">The connection string.</param>
-        /// <param name="databaseInitializer">Database initializer</param>
-        public DbContextFactory(string connectionString, IDatabaseInitializer databaseInitializer)
+        /// <param name="dbContextConfigs">The database context configurations.</param>
+        public DbContextFactory(params DbContextConfig[] dbContextConfigs)
         {
-            Guard.AgainstNull(databaseInitializer, nameof(databaseInitializer));
-            Guard.AgainstNullOrEmptyString(connectionString, nameof(connectionString));
+            Guard.AgainstNull(dbContextConfigs, nameof(dbContextConfigs));
+            Guard.Against(
+                () => this.InvalidConfigurations(dbContextConfigs),
+                "At least one db context configuration must be specified for DbContextFactory");
 
-            this.connectionString = connectionString;
-            this.databaseInitializer = databaseInitializer;
+            this.dbContextConfigs = dbContextConfigs;
         }
 
         /// <summary>
@@ -45,8 +44,14 @@ namespace SSW.DataOnion.Core
         /// <returns></returns>
         public virtual TDbContext Create<TDbContext>() where TDbContext : DbContext
         {
+            var config = this.dbContextConfigs.FirstOrDefault(c => c.DbContextType == typeof(TDbContext));
+            if (config == null)
+            {
+                throw new DataOnionException($"Could not find any configurations for DbContext of type {typeof(TDbContext)}");
+            }
+
             this.logger.Debug(
-                "Creating new dbContext with connection string {connectionString}",this.connectionString);
+                "Creating new dbContext with connection string {connectionString}", config.ConnectionString);
 
             // create serviceProvider
             var serviceProvider = 
@@ -55,9 +60,9 @@ namespace SSW.DataOnion.Core
                         .AddSqlServer()
                         .AddDbContext<TDbContext>(
                             options =>
-                                {
-                                    options.UseSqlServer(this.connectionString);
-                                })
+                            {
+                                options.UseSqlServer(config.ConnectionString);
+                            })
                         .GetInfrastructure()
                         .Replace(
                             new ServiceDescriptor(
@@ -74,10 +79,18 @@ namespace SSW.DataOnion.Core
                 return dbContext;
             }
 
-            this.databaseInitializer.Initialize(dbContext);
+            config.DatabaseInitializer.Initialize(dbContext);
             hasSetInitializer = true;
 
             return dbContext;
+        }
+
+        private IEnumerable<string> InvalidConfigurations(DbContextConfig[] dbContextConfigurations)
+        {
+            if (!dbContextConfigurations.Any())
+            {
+                yield return "At least one db context configuration must be specified for DbContextFactory";
+            }
         }
     }
 }

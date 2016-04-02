@@ -20,7 +20,7 @@
     "Microsoft.Extensions.Logging.Console": "1.0.0-rc1-final",
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
-    "SSW.DataOnion.DependencyResolution.Microsoft": "1.0.0-alpha-1",
+    "SSW.DataOnion.DependencyResolution.Microsoft": "1.0.0-alpha-2",
     "SSW.DataOnion.Sample.Data": "1.0.0-*"
   },
 

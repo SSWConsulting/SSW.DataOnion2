@@ -16,7 +16,7 @@ namespace SSW.DataOnion.Core.Tests.Unit
         {
             var mock = new Mock<IDatabaseInitializer>();
             
-            var dbContextFactory = new DbContextFactory("connection string", mock.Object);
+            var dbContextFactory = new DbContextFactory(new DbContextConfig("connection string", typeof(FakeDbContext), mock.Object));
             var dbContext = dbContextFactory.Create<FakeDbContext>();
 
             mock.Verify(m => m.Initialize(It.IsAny<FakeDbContext>()), Times.Once);
@@ -28,7 +28,7 @@ namespace SSW.DataOnion.Core.Tests.Unit
         {
             try
             {
-                var dbContextFactory = new DbContextFactory("connection string", null);
+                var dbContextFactory = new DbContextFactory(new DbContextConfig("connection string", typeof(FakeDbContext), null));
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace SSW.DataOnion.Core.Tests.Unit
             
             try
             {
-                var dbContextFactory = new DbContextFactory(null, mock.Object);
+                var dbContextFactory = new DbContextFactory(new DbContextConfig(null, typeof(FakeDbContext), mock.Object));
             }
             catch (Exception ex)
             {

@@ -33,7 +33,7 @@
     Now add this line to activate DataOnion:
     
 	```cs
-    services.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
+    services.AddDataOnion(new DbContextConfig(this.Configuration["Data:DefaultConnection:ConnectionString"], typeof(YourDbContextType), databaseInitializer));
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
@@ -76,7 +76,7 @@
     Now call AddDataOnion extension method on your Autofac container builder:
     
 	```cs
-    builder.AddDataOnion(this.Configuration["Data:DefaultConnection:ConnectionString"], databaseInitializer);
+    builder.AddDataOnion(new DbContextConfig(this.Configuration["Data:DefaultConnection:ConnectionString"], typeof(YourDbContextType), databaseInitializer));
     ```
     _Note: First parameter is just your connection string, adjust it if required._
 
@@ -85,6 +85,30 @@
 	```cs
     buider.Register<BaseRepository<YourEntityName, YourDbContextName>>().As<IRepository<YourEntityName>>();
     ```
+### If using any other DI container read this section
+
+1. Add **SSW.DataOnion.Core** nuget package to your UI or DependencyResolution project:
+    
+	```sh
+    Install-Package SSW.DataOnion.Core –Pre
+
+2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
+
+3. Register the following classes with corresponding interfaces using DI Container of your choice:	
+
+	* DbContextFactory with IDbContextFactory interface and parameter dbContextConfigs
+	* DbContextScope with IDbContextScope interface
+	* DbContextScopeFactory with IDbContextScopeFactory interface - instance per request is recommended
+	* AmbientDbContextLocator with IAmbientDbContextLocator interface
+	* DbContextReadOnlyScope with IDbContextReadOnlyScope interface
+	
+	if you are planning to use unit of work pattern, then the following dependencies must also be registered
+	
+	* RepositoryLocator with IRepositoryLocator interface
+	* YourRepositoryResolver with IAutofacRepositoryResolver interface 
+	* UnitOfWorkFactory with IUnitOfWorkFactory interface - instance per request is recommended
+	* UnitOfWork with IUnitOfWork interface
+	* ReadOnlyUnitOfWork with IReadOnlyUnitOfWork interface
 
 Congratulations, you are now ready to use DataOnion2!!!
 

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SSW.DataOnion.Core</id>
-    <version>1.0.0-alpha-1</version>
+    <version>1.0.0-alpha-2</version>
     <authors>Igor Goldobin, Brendan Richards</authors>
     <owners>SSW</owners>
     <projectUrl>https://github.com/SSWConsulting/SSW.DataOnion2</projectUrl>
