@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.ChangeTracking;
 
 namespace SSW.DataOnion.Interfaces
 {
@@ -91,5 +94,7 @@ namespace SSW.DataOnion.Interfaces
         /// Save the scope instead.
         /// </summary>
         IDbContextCollection DbContexts { get; }
+
+        Dictionary<DbContext, IEnumerable<EntityEntry>> GetChangedEntities();
     }
 }

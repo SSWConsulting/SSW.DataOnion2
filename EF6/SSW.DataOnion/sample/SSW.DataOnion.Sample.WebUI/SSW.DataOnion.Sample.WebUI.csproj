@@ -181,9 +181,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\DbContextDemoController.cs" />
+    <Compile Include="Controllers\UnitOfWorkDemoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\StudentModel.cs" />
+    <Compile Include="Models\StudentsModel.cs" />
     <Compile Include="Models\SchoolsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Query\SchoolQueryService.cs" />
@@ -191,6 +195,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\logo.png" />
+    <Content Include="Content\back.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -206,6 +212,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -225,11 +233,15 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Schools.cshtml" />
-    <Content Include="Views\Home\Schools2.cshtml" />
+    <Content Include="Views\DbContextDemo\Index.cshtml" />
+    <Content Include="Views\DbContextDemo\Students.cshtml" />
+    <Content Include="Views\DbContextDemo\StudentDetails.cshtml" />
+    <Content Include="Views\DbContextDemo\ConfirmDelete.cshtml" />
+    <Content Include="Views\UnitOfWorkDemo\ConfirmDelete.cshtml" />
+    <Content Include="Views\UnitOfWorkDemo\Index.cshtml" />
+    <Content Include="Views\UnitOfWorkDemo\StudentDetails.cshtml" />
+    <Content Include="Views\UnitOfWorkDemo\Students.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

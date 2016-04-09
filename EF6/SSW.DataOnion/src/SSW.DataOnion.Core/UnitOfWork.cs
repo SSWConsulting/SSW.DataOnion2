@@ -24,17 +24,17 @@ namespace SSW.DataOnion.Core
 
         public void SaveChanges()
         {
-            this.RunBeforeSave();
+            this.RunBeforeSave(this.dbContextScope);
             this.dbContextScope.SaveChanges();
         }
 
         public async Task SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            this.RunBeforeSave();
+            this.RunBeforeSave(this.dbContextScope);
             await this.dbContextScope.SaveChangesAsync(cancellationToken);
         }
 
-        protected virtual void RunBeforeSave()
+        protected virtual void RunBeforeSave(IDbContextScope currentDbContextScope)
         {
         }
 

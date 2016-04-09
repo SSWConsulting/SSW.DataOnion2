@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -91,5 +94,7 @@ namespace SSW.DataOnion.Interfaces
         /// Save the scope instead.
         /// </summary>
         IDbContextCollection DbContexts { get; }
+
+        Dictionary<DbContext, IEnumerable<DbEntityEntry>> GetChangedEntities();
     }
 }

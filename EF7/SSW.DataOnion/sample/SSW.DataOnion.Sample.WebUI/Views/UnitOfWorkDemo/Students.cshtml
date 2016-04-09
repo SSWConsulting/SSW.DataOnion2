@@ -1,0 +1,78 @@
+﻿@model SSW.DataOnion.Sample.WebUI.Model.StudentsModel
+@{
+    ViewData["Title"] = "Students";
+}
+<h2>Students - using UnitOfWork</h2>
+
+<h3>Students for @Model.School.Name</h3>
+<div class="pull-right">
+    <button type="button" class="btn btn-success edit-student" data-id="@Guid.Empty">Add Student</button>
+    @Html.ActionLink("Back to Schools", "Index", "UnitOfWorkDemo", null, new { @class = "btn btn-primary" })
+</div>
+
+<table class="table table-responsive table-striped" id="list-of-students">
+    <thead>
+        <tr>
+            <th class="col-md-3">
+                Student Id
+            </th>
+            <th class="col-md-6">
+                Student Name
+            </th>
+            <th class="col-md-3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model.Students)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.FullName</td>
+                <th>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-success edit-student" data-id="@student.Id">Edit</button>
+                        &nbsp;
+                        <button type="button" class="btn btn-sm btn-danger delete-student" data-id="@student.Id">Delete</button>
+                    </div>
+                </th>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section modals
+{
+    <div class="modal fade in" id="edit-student">
+        <div id="edit-student-container"></div>
+    </div>
+
+    <div class="modal fade in" id="delete-student">
+        <div id="delete-student-container"></div>
+    </div>
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.edit-student').click(function () {
+                var url = "/UnitOfWorkDemo/EditStudent";
+                var id = $(this).data("id");
+                $.get(url + "?schoolId=@(Model.School.Id)&studentId=" + id, function (data) {
+                    $('#edit-student-container').html(data);
+                    $('#edit-student').modal('show');
+                });
+            });
+
+            $('.delete-student').click(function () {
+                var url = "/UnitOfWorkDemo/ConfirmDelete";
+                var id = $(this).data("id");
+                $.get(url + "?schoolId=@(Model.School.Id)&studentId=" + id, function (data) {
+                    $('#delete-student-container').html(data);
+                    $('#delete-student').modal('show');
+                });
+            });
+        });
+    </script>
+}
+

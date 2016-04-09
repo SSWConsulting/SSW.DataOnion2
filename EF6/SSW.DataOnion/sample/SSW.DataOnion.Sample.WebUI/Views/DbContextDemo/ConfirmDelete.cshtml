@@ -1,0 +1,57 @@
+﻿@model SSW.DataOnion.Sample.WebUI.Models.StudentModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel" class="text-danger">Are you sure you want to delete this student?</h3>
+        </div>
+        <div>
+            @using (Ajax.BeginForm("DeleteStudent", "DbContextDemo", FormMethod.Post,
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "delete-student-container",
+                    OnSuccess = "completed"
+                }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.SchoolId)
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="modal-body">
+                    <div class="form-control-static">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="confirmation">
+                                I understand that this action <strong>will permanently remove @(Model.FirstName + " " + Model.LastName)</strong> student and kick him/her out of all schools.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-danger" id="delete-button" disabled="disabled" type="submit">Delete</button>
+                    <button class="btn btn-link" type="button" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $("#confirmation").change(function () {
+            var confirmed = $(this).is(":checked");
+            $('#delete-button').prop('disabled', !confirmed);
+        });
+    });
+
+    function completed(data) {
+        if (data.Result === "ok") {
+            location.reload();
+        }
+    }
+
+</script>

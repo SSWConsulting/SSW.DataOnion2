@@ -1,0 +1,63 @@
+﻿@model SSW.DataOnion.Sample.WebUI.Models.StudentModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">@(Model.Id.HasValue ? "Add" : "Edit") Student</h3>
+        </div>
+        <div>
+            @using (Ajax.BeginForm("EditStudent", "UnitOfWorkDemo", FormMethod.Post,
+                new AjaxOptions
+                {
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST",
+                    UpdateTargetId = "edit-student-container",
+                    OnSuccess = "completed"
+                }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.SchoolId)
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="modal-body" id="edit-student-form">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, "First Name", new {@class = "control-label"})
+                        @Html.TextBoxFor(m => m.FirstName, new {@class = "form-control input-lg"})
+                        <span class="help-block">
+                            @Html.ValidationMessageFor(m => m.FirstName)
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, "Last Name", new {@class = "control-label"})
+                        @Html.TextBoxFor(m => m.LastName, new {@class = "form-control input-lg"})
+                        <span class="help-block">
+                            @Html.ValidationMessageFor(m => m.LastName)
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" type="submit">Save</button>
+                    <button class="btn btn-link" type="button" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $(".field-validation-error").each(function() {
+            $(this).closest(".form-group").addClass("has-error");
+        });
+    });
+
+    function completed(data) {
+        if (data.Result === "ok") {
+            location.reload();
+        }
+    }
+       
+</script>

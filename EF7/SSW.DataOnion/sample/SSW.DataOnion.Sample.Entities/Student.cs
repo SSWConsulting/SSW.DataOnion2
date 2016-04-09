@@ -24,6 +24,12 @@ namespace SSW.DataOnion.Sample.Entities
             return new Student(firstName, lastName);
         }
 
+        public void UpdateName(string firstName, string lastName)
+        {
+            this.FirstName = firstName;
+            this.LastName = lastName;
+        }
+
         public string FirstName { get; protected set; }
 
         public string LastName { get; protected set; }
