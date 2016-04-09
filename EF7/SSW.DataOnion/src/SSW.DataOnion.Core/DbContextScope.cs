@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Data.Entity;
+using Microsoft.Data.Entity.ChangeTracking;
 using Microsoft.Extensions.PlatformAbstractions;
 using Serilog;
 using SSW.DataOnion.Interfaces;
@@ -66,6 +68,22 @@ namespace SSW.DataOnion.Core
             SetAmbientScope(this);
         }
 
+        public Dictionary<DbContext, IEnumerable<EntityEntry>> GetChangedEntities()
+        {
+            var entities = new Dictionary<DbContext, IEnumerable<EntityEntry>>();
+            foreach (var dbContext in this.dbContexts.InitializedDbContexts.Values)
+            {
+                var entitiesThisPass =
+                    dbContext.ChangeTracker.Entries()
+                        .Where(
+                            x => x.State == EntityState.Added || x.State == EntityState.Modified)
+                        .ToList();
+                entities.Add(dbContext, entitiesThisPass);
+            }
+
+            return entities;
+        }
+
         public int SaveChanges()
         {
             if (this.disposed)
@@ -78,7 +96,7 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
-                this.RunBeforeSave();
+                this.RunBeforeSave(this.dbContexts);
                 c = this.CommitInternal();
             }
 
@@ -106,7 +124,7 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
-                this.RunBeforeSave();
+                this.RunBeforeSave(this.dbContexts);
                 c = await this.CommitInternalAsync(cancelToken).ConfigureAwait(false);
             }
 
@@ -114,7 +132,7 @@ namespace SSW.DataOnion.Core
             return c;
         }
 
-        protected virtual void RunBeforeSave()
+        protected virtual void RunBeforeSave(DbContextCollection dbContextCollection)
         {
         }
 

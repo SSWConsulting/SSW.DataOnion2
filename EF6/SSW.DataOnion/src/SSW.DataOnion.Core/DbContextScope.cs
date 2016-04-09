@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -25,6 +26,21 @@ namespace SSW.DataOnion.Core
         private readonly DbContextCollection dbContexts;
 
         public IDbContextCollection DbContexts => this.dbContexts;
+        public Dictionary<DbContext, IEnumerable<DbEntityEntry>> GetChangedEntities()
+        {
+            var entities = new Dictionary<DbContext, IEnumerable<DbEntityEntry>>();
+            foreach (var dbContext in this.dbContexts.InitializedDbContexts.Values)
+            {
+                var entitiesThisPass =
+                    dbContext.ChangeTracker.Entries()
+                        .Where(
+                            x => x.State == EntityState.Added || x.State == EntityState.Modified)
+                        .ToList();
+                entities.Add(dbContext, entitiesThisPass);
+            }
+
+            return entities;
+        }
 
         public DbContextScope(IDbContextFactory dbContextFactory = null) :
             this(joiningOption: DbContextScopeOption.JoinExisting, readOnly: false, isolationLevel: null, dbContextFactory: dbContextFactory)
@@ -75,7 +91,7 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
-                this.RunBeforeSave();
+                this.RunBeforeSave(this.dbContexts);
                 c = this.CommitInternal();
             }
 
@@ -103,7 +119,7 @@ namespace SSW.DataOnion.Core
             var c = 0;
             if (!this.nested)
             {
-                this.RunBeforeSave();
+                this.RunBeforeSave(this.dbContexts);
                 c = await this.CommitInternalAsync(cancelToken).ConfigureAwait(false);
             }
 
@@ -111,7 +127,7 @@ namespace SSW.DataOnion.Core
             return c;
         }
 
-        protected virtual void RunBeforeSave()
+        protected virtual void RunBeforeSave(DbContextCollection dbContextCollection)
         {
         }
 
