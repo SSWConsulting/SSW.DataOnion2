@@ -32,6 +32,12 @@ namespace SSW.DataOnion.Sample.Entities
             this.Students.Add(student);
         }
 
+        public void KickStudentOut(Student student)
+        {
+            Guard.AgainstNull(student, nameof(student));
+            this.Students.Remove(student);
+        }
+
         public string Name { get; protected set; }
 
         public Address Address { get; protected set; }

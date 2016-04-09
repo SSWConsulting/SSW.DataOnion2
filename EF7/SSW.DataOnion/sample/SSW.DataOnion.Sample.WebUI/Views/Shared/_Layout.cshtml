@@ -27,21 +27,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">SSW.DataOnion.Sample.WebUI</a>
+                    <a asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img alt="logo" height="20" src="/images/logo.png" />
+                    </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        <li><a asp-controller="Home" asp-action="About">About</a></li>
-                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                        <li><a asp-controller="Home" asp-action="Schools">Schools - using UnitOfWork</a></li>
-                        <li><a asp-controller="Home" asp-action="Schools2">Schools - using DbContext</a></li>
+                        <li><a asp-controller="UnitOfWorkDemo" asp-action="Index">Schools - using UnitOfWork</a></li>
+                        <li><a asp-controller="DbContextDemo" asp-action="Index">Schools - using DbContext</a></li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="container body-content">
             @RenderBody()
+            @RenderSection("modals", required: false)
             <hr />
             <footer>
                 <p>&copy; 2016 - SSW.DataOnion.Sample.WebUI</p>
@@ -51,6 +52,8 @@
         <environment names="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
             <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+            <script src="~/js/jquery.unobtrusive-ajax.min.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
         </environment>
         <environment names="Staging,Production">
@@ -61,7 +64,14 @@
             <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.5/bootstrap.min.js"
                     asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
                     asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+
+            
             </script>
+            <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"
+                    asp-fallback-src="~/lib/jquery-validation/dist/jquery.validate.js"
+                    asp-fallback-test="window.jQuery">
+            </script>
+            <script src="~/js/jquery.unobtrusive-ajax.min.js"></script>
             <script src="~/js/site.min.js" asp-append-version="true"></script>
         </environment>
 
