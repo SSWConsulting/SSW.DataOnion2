@@ -5,7 +5,7 @@
 1. Add **SSW.DataOnion.DependencyResolution.Microsoft** nuget package to your UI project:
     
 	```sh
-    Install-Package SSW.DataOnion.DependencyResolution.Microsoft –Pre
+    Install-Package SSW.DataOnion.DependencyResolution.Microsoft ï¿½Pre
     ```
 
 2. Open your **Startup.cs** file and go to ConfigureServices method
@@ -48,7 +48,7 @@
 1. Add **SSW.DataOnion.DependencyResolution.Autofac** nuget package to your UI project:
     
 	```sh
-    Install-Package SSW.DataOnion.DependencyResolution.Autofac –Pre
+    Install-Package SSW.DataOnion.DependencyResolution.Autofac ï¿½Pre
     ```
 
 2. Open your **Startup.cs** file or file used to configure your Autofac contrainer
@@ -90,7 +90,7 @@
 1. Add **SSW.DataOnion.Core** nuget package to your UI or DependencyResolution project:
     
 	```sh
-    Install-Package SSW.DataOnion.Core –Pre
+    Install-Package SSW.DataOnion.Core ï¿½Pre
 	```
 
 2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
@@ -143,7 +143,11 @@ Data onion supports two main DbContext interactions:
     ```
     If you need to access the ambient  **DbContext** instances anywhere else (e.g. in a repository class), you can just take a dependency on **IAmbientDbContextLocator** and use it to locate your existing **DbContext**.
 
-2. Indirect interaction with **DbContext** using **UnitOfWork** and **repository pattern**. To use this interaction, take a dependency on **IUnitOfWorkFactory**.
+2. Indirect interaction with **DbContext** using **UnitOfWork** and **repository pattern**. 
+
+    The repository and unit of work patterns are intended to create an abstraction layer between the data access layer and the business logic layer of an application. Implementing these patterns can help insulate your application from changes in the data store and can facilitate automated unit testing or test-driven development (TDD).
+
+    To use this interaction, take a dependency on **IUnitOfWorkFactory**.
 
     When you start business transaction use factory to create **UnitOfWork**. At the end of business transaction, call **SaveChanges** or **SaveChangesAsync** on **Unitofwork** instance
 
@@ -184,7 +188,7 @@ This step is optional. DbContext partial class will be automatically generated b
 1. Add **SSW.DataOnion.CodeGeneration** nuget package to project that will contain your DbContext (i.e YourNamespace.Data) :
 
     ```sh
-    Install-Package SSW.DataOnion.CodeGenerator –Pre
+    Install-Package SSW.DataOnion.CodeGenerator ï¿½Pre
     ```
 2. Register custom data onion command in your  **project.son**  file:
 
@@ -195,7 +199,7 @@ This step is optional. DbContext partial class will be automatically generated b
     ```
 3. In console, navigate to your data project root folder and type:
     ```cs
-    dnx onion —help
+    dnx onion ï¿½help
     ```
     List of available parameters will be shown.
 
