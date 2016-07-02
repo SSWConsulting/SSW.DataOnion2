@@ -12,7 +12,7 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
         public void Test01_Generate_TestDbContext_For_All_Entities()
         {
             var dll = Path.Combine(Directory.GetCurrentDirectory(),
-                @"..\..\..\artifacts\bin\SSW.DataOnion.CodeGenerator.Tests.Unit\Debug\dnx451\SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
+                @"SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
             var generator = new DbContextGenerator();
             generator.Generate("TestDbContext", "SSW.DataOnion.CodeGenerator.Tests.Unit.TestEntities", "SSW.DataOnion.CodeGenerator.Tests.Unit", dll);
             var expectedDbContextContents =

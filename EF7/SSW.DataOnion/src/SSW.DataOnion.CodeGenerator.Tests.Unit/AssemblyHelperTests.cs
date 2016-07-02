@@ -10,7 +10,7 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
         public void Test01_Load_All_ExistingEntities()
         {
             var dll = Path.Combine(Directory.GetCurrentDirectory(),
-                @"..\..\..\artifacts\bin\SSW.DataOnion.CodeGenerator.Tests.Unit\Debug\dnx451\SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
+                @"SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
             Assert.True(File.Exists(dll));
 
             var entityTypes =
@@ -22,7 +22,7 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
         public void Test02_Load_Entities_With_Base_Type_Person()
         {
             var dll = Path.Combine(Directory.GetCurrentDirectory(),
-                @"..\..\..\artifacts\bin\SSW.DataOnion.CodeGenerator.Tests.Unit\Debug\dnx451\SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
+                @"SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
             Assert.True(File.Exists(dll));
 
             var entityTypes =
@@ -34,7 +34,7 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
         public void Test03_Load_Entities_With_Invalid_Base_Type()
         {
             var dll = Path.Combine(Directory.GetCurrentDirectory(),
-                @"..\..\..\artifacts\bin\SSW.DataOnion.CodeGenerator.Tests.Unit\Debug\dnx451\SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
+                @"SSW.DataOnion.CodeGenerator.Tests.Unit.dll");
             Assert.True(File.Exists(dll));
 
             var entityTypes =
@@ -47,7 +47,8 @@ namespace SSW.DataOnion.CodeGenerator.Tests.Unit
         {
             var dll = Path.Combine(Directory.GetCurrentDirectory(),
                 @"..\invalid.dll");
-            Assert.Throws<GenerationException>(() =>
+            
+            Assert.ThrowsAny<GenerationException>(() =>
             {
                 CodeGenerator.Helpers.AssemblyHelper.GetDomainTypes("SSW.DataOnion.CodeGenerator.Tests.Unit.TestEntities", dll, "Invalid");
             });

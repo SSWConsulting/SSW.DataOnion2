@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
-using Microsoft.Data.Entity.Storage.Internal;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -56,19 +56,11 @@ namespace SSW.DataOnion.Core
             // create serviceProvider
             var serviceProvider = 
                 new ServiceCollection()
-                        .AddEntityFramework()
-                        .AddSqlServer()
                         .AddDbContext<TDbContext>(
                             options =>
                             {
                                 options.UseSqlServer(config.ConnectionString);
                             })
-                        .GetInfrastructure()
-                        .Replace(
-                            new ServiceDescriptor(
-                                typeof(SqlServerDatabaseCreator), 
-                                typeof(SqlDbCreator), 
-                                ServiceLifetime.Scoped))
                         .BuildServiceProvider();
 
 

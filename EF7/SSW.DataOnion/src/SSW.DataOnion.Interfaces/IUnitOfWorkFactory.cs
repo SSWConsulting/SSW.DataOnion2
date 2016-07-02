@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Data;
-
 namespace SSW.DataOnion.Interfaces
 {
     /// <summary>

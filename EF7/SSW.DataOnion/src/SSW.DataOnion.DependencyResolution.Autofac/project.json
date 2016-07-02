@@ -1,23 +1,21 @@
 ﻿{
-  "version": "1.0.0-alpha-3",
+  "version": "1.0.0",
   "description": "Autofac Resolver Extensions for DataOnion",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
-  "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
-  "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
-  "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+  "packOptions": {
+    "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+    "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+    "repository": { "url": "https://github.com/SSWConsulting/SSW.DataOnion2" }
+  },
+  "dependencies": {
+    "SSW.DataOnion.Core": "1.0.0",
+    "Autofac": "4.0.0-rc3-286"
+  },
 
   "frameworks": {
-    "dnx451": {
-      "dependencies": {
-        "Autofac": "4.0.0-rc1-177",
-        "SSW.DataOnion.Core": "1.0.0-alpha-6"
-      }
-    },
-    "dnxcore50": {
-      "dependencies": {
-        "Autofac": "4.0.0-rc1-177",
-        "SSW.DataOnion.Core": "1.0.0-alpha-6"
-      }
-    } 
+    "net451": {},
+    "net452": {},
+    "net461": {},
+    "netcoreapp1.0": {}
   }
 }

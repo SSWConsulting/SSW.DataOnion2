@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace SSW.DataOnion.Core.Extensions
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace SSW.DataOnion.Interfaces
 {

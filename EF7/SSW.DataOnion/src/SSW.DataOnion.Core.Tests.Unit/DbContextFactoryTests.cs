@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentAssertions;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using SSW.DataOnion.Core.Initializers;
 using SSW.DataOnion.Core.Tests.Unit.Setup;

@@ -1,37 +1,52 @@
 {
-  "version": "1.0.0-*",
+  "version": "1.0.0",
   "description": "SSW.DataOnion.Sample.Data Class Library",
   "authors": [ "igor" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
 
   "dependencies": {
-    "EntityFramework.Commands": "7.0.0-rc1-final",
-    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-    "EntityFramework.Relational": "7.0.0-rc1-final",
-    "EntityFramework.Core": "7.0.0-rc1-final",
-    "SSW.DataOnion.Sample.Entities": "1.0.0-*",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0-rc1-final",
-    "SSW.DataOnion.Interfaces": "1.0.0-alpha-4"
+    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
+    "SSW.DataOnion.Sample.Entities": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "SSW.DataOnion.Interfaces": "1.0.0"
   },
 
-  "commands": {
-    "onion": "SSW.DataOnion.CodeGenerator",
-    "ef": "EntityFramework.Commands"
+  "tools": {
+    "Microsoft.EntityFrameworkCore.Tools": {
+      "version": "1.0.0-preview2-final",
+      "imports": [
+        "portable-net45+win8+dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
   },
 
   "frameworks": {
-    "dnx451": {
-      "SSW.DataOnion.CodeGenerator": "1.0.0-alpha-1"
+    "net451": {
+      "dependencies": {
+        "SSW.DataOnion.CodeGenerator": "1.0.0"
+      }
     },
-    "dnxcore50": {
-      "System.Runtime": "4.0.21-beta-23516",
-      "System.Collections": "4.0.11-beta-23516",
-      "System.Linq": "4.0.1-beta-23516",
-      "System.Text.RegularExpressions": "4.0.11-beta-23516",
-      "System.Runtime.InteropServices": "4.0.21-beta-23516",
-      "System.Reflection": "4.0.21-beta-23516"
+    "net452": {
+      "dependencies": {
+        "SSW.DataOnion.CodeGenerator": "1.0.0"
+      }
+    },
+    "net461": {
+      "dependencies": {
+        "SSW.DataOnion.CodeGenerator": "1.0.0"
+      }
+    },
+    "netcoreapp1.0": {
+      "dependencies": {
+        "System.Reflection": "4.1.0",
+        "System.Runtime": "4.1.0",
+        "System.Collections": "4.0.11",
+        "System.Linq": "4.1.0",
+        "System.Text.RegularExpressions": "4.1.0",
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     }
   }
 }
