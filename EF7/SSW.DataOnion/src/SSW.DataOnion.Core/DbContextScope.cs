@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Runtime.CompilerServices;
-#if DNX451
+
+#if NET451 || NET452 || NET461
 using System.Runtime.Remoting.Messaging;
 #endif
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.ChangeTracking;
-using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Serilog;
 using SSW.DataOnion.Interfaces;
 
@@ -28,8 +28,6 @@ namespace SSW.DataOnion.Core
         private readonly DbContextCollection dbContexts;
 
         public IDbContextCollection DbContexts => this.dbContexts;
-
-        private IRuntimeEnvironment runtime;
 
         public DbContextScope(IDbContextFactory dbContextFactory = null) :
             this(joiningOption: DbContextScopeOption.JoinExisting, readOnly: false, isolationLevel: null, dbContextFactory: dbContextFactory)
@@ -450,12 +448,11 @@ In order to fix this:
         // to the DbContextScope instances we store in there, allowing them to get GCed.
         // The doc for ConditionalWeakTable isn't the best. This SO answer does a good job at explaining what 
         // it does: http://stackoverflow.com/a/18613811
-#if DNX451
+#if NET451 || NET452 || NET461
         private static readonly ConditionalWeakTable<InstanceIdentifier, DbContextScope> DbContextScopeInstances = new ConditionalWeakTable<InstanceIdentifier, DbContextScope>();
 
         private InstanceIdentifier instanceIdentifier = new InstanceIdentifier();
-#endif
-#if DNXCORE50
+#else
         private static readonly ConditionalWeakTable<string, DbContextScope> DbContextScopeInstances = new ConditionalWeakTable<string, DbContextScope>();
 
         private static AsyncLocal<string> CallContext = new AsyncLocal<string>();
@@ -468,7 +465,7 @@ In order to fix this:
         {
             if (newAmbientScope == null)
                 throw new ArgumentNullException("newAmbientScope");
-#if DNX451
+#if NET451 || NET452 || NET461
             var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
 
             if (current == newAmbientScope.instanceIdentifier)
@@ -479,8 +476,7 @@ In order to fix this:
 
             // Keep track of this instance (or do nothing if we're already tracking it)
             DbContextScopeInstances.GetValue(newAmbientScope.instanceIdentifier, key => newAmbientScope);
-#endif
-#if DNXCORE50
+#else
             var current = CallContext.Value;
 
             if (current == AmbientDbContextScopeKey)
@@ -500,7 +496,7 @@ In order to fix this:
         /// </summary>
         internal static void RemoveAmbientScope()
         {
-#if DNX451
+#if NET451 || NET452 || NET461
             var current = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
             CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
 
@@ -509,8 +505,7 @@ In order to fix this:
             {
                 DbContextScopeInstances.Remove(current);
             }
-#endif
-#if DNXCORE50
+#else
             var current = CallContext.Value;
             CallContext.Value = null;
 
@@ -528,10 +523,9 @@ In order to fix this:
         /// </summary>
         internal static void HideAmbientScope()
         {
-#if DNX451
+#if NET451 || NET452 || NET461
             CallContext.LogicalSetData(AmbientDbContextScopeKey, null);
-#endif
-#if DNXCORE50
+#else
             CallContext.Value = null;
 #endif
 
@@ -544,7 +538,7 @@ In order to fix this:
         {
 
             // Retrieve the identifier of the ambient scope (if any)
-#if DNX451
+#if NET451 || NET452 || NET461
             var instanceIdentifier = CallContext.LogicalGetData(AmbientDbContextScopeKey) as InstanceIdentifier;
             if (instanceIdentifier == null)
                 return null; // Either no ambient context has been set or we've crossed an app domain boundary and have (intentionally) lost the ambient context
@@ -553,8 +547,7 @@ In order to fix this:
             DbContextScope ambientScope;
             if (DbContextScopeInstances.TryGetValue(instanceIdentifier, out ambientScope))
                 return ambientScope;
-#endif
-#if DNXCORE50
+#else
            var instanceIdentifier = CallContext.Value;
             if (instanceIdentifier == null)
                 return null; // Either no ambient context has been set or we've crossed an app domain boundary and have (intentionally) lost the ambient context
@@ -584,7 +577,7 @@ In order to fix this:
 
 #endregion
     }
-#if DNX451
+#if NET451 || NET452 || NET461
     /*
      * The idea of using an object reference as our instance identifier 
      * instead of simply using a unique string (which we could have generated

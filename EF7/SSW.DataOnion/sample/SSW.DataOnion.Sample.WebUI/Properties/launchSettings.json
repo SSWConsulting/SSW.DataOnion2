@@ -15,11 +15,13 @@
         "Hosting:Environment": "Development"
       }
     },
-    "web": {
-      "commandName": "web",
+    "WebApplication2": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "http://localhost:5000",
       "environmentVariables": {
-        "Hosting:Environment": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
-    }
+    },
   }
 }

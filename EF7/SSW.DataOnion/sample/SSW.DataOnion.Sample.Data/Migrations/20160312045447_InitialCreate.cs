@@ -1,6 +1,5 @@
 using System;
-using System.Collections.Generic;
-using Microsoft.Data.Entity.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ssw.dataonion.sample.data.Migrations
 {
@@ -9,7 +8,7 @@ namespace ssw.dataonion.sample.data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -22,10 +21,10 @@ namespace ssw.dataonion.sample.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                 });
             migrationBuilder.CreateTable(
-                name: "School",
+                name: "Schools",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -34,16 +33,16 @@ namespace ssw.dataonion.sample.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_School", x => x.Id);
+                    table.PrimaryKey("PK_Schools", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_School_Address_AddressId",
+                        name: "FK_Schools_Addresses_AddressId",
                         column: x => x.AddressId,
-                        principalTable: "Address",
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
             migrationBuilder.CreateTable(
-                name: "Student",
+                name: "Students",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -54,11 +53,11 @@ namespace ssw.dataonion.sample.data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Student", x => x.Id);
+                    table.PrimaryKey("PK_Students", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Student_School_SchoolId",
+                        name: "FK_Students_Schools_SchoolId",
                         column: x => x.SchoolId,
-                        principalTable: "School",
+                        principalTable: "Schools",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -66,9 +65,9 @@ namespace ssw.dataonion.sample.data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("Student");
-            migrationBuilder.DropTable("School");
-            migrationBuilder.DropTable("Address");
+            migrationBuilder.DropTable("Students");
+            migrationBuilder.DropTable("Schools");
+            migrationBuilder.DropTable("Addresses");
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SSW.DataOnion.Interfaces;
 using SSW.DataOnion.Sample.Entities;
 

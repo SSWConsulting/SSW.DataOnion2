@@ -5,8 +5,8 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Storage;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 
 using SSW.DataOnion.Interfaces;
 
@@ -26,7 +26,7 @@ namespace SSW.DataOnion.Core
     /// </summary>
     public class DbContextCollection : IDbContextCollection
     {
-        private readonly Dictionary<DbContext, IRelationalTransaction> transactions;
+        private readonly Dictionary<DbContext, IDbContextTransaction> transactions;
         private IsolationLevel? isolationLevel;
         private readonly IDbContextFactory dbContextFactory;
         private bool disposed;
@@ -41,7 +41,7 @@ namespace SSW.DataOnion.Core
             this.completed = false;
 
             this.InitializedDbContexts = new Dictionary<Type, DbContext>();
-            this.transactions = new Dictionary<DbContext, IRelationalTransaction>();
+            this.transactions = new Dictionary<DbContext, IDbContextTransaction>();
 
             this.readOnly = readOnly;
             this.isolationLevel = isolationLevel;

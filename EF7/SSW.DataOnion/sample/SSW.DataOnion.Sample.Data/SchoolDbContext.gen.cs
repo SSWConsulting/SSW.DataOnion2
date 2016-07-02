@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using Microsoft.Data.Entity;
-using Microsoft.Data.Entity.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using SSW.DataOnion.Interfaces;
 using System.Linq;
@@ -58,10 +58,9 @@ namespace SSW.DataOnion.Sample.Data
             var mappingInterface = typeof(IEntityTypeConfiguration<>);
 
             // Types that do entity mapping
-#if DNX451
+#if NET451 || NET452 || NET461
             var mappingTypes = typeof(SchoolDbContext).Assembly.GetTypes()
-#endif
-#if DNXCORE50
+#else
             var mappingTypes = typeof(SchoolDbContext).GetTypeInfo().Assembly.GetTypes()
 #endif
                 .Where(x => x.GetInterfaces().Any(y => y.GetTypeInfo().IsGenericType && y.GetGenericTypeDefinition() == mappingInterface));

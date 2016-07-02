@@ -1,10 +1,9 @@
 ﻿using System.Data.SqlClient;
 using System.Threading;
-
-using Microsoft.Data.Entity.Metadata;
-using Microsoft.Data.Entity.Migrations;
-using Microsoft.Data.Entity.Storage;
-using Microsoft.Data.Entity.Storage.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 
 using Serilog;
 
@@ -16,7 +15,7 @@ namespace SSW.DataOnion.Core
 
         private static ILogger _logger = Log.ForContext<SqlDbCreator>();
 
-        public SqlDbCreator(ISqlServerConnection connection, IMigrationsModelDiffer modelDiffer, IMigrationsSqlGenerator migrationsSqlGenerator, IModel model, ISqlCommandBuilder sqlCommandBuilder) : base(connection, modelDiffer, migrationsSqlGenerator, model, sqlCommandBuilder)
+        public SqlDbCreator(ISqlServerConnection connection, IMigrationsModelDiffer modelDiffer, IMigrationsSqlGenerator migrationsSqlGenerator, IMigrationCommandExecutor migrationCommandExecutor, IModel model, IRawSqlCommandBuilder rawSqlCommandBuilder) : base(connection, modelDiffer, migrationsSqlGenerator, migrationCommandExecutor, model, rawSqlCommandBuilder)
         {
             this._connection = connection;
         }

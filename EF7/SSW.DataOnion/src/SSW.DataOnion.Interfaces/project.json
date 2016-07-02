@@ -1,20 +1,19 @@
 {
-  "version": "1.0.0-alpha-4",
+  "version": "1.0.0",
   "description": "Set of Interfaces for DataOnion",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
-  "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
-  "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
-  "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+  "packOptions": {
+    "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+    "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+    "repository": { "url": "https://github.com/SSWConsulting/SSW.DataOnion2" }
+  },
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": {
-      "dependencies": {
-        "System.Runtime": "4.0.21-beta-23516"
-      }
-    }
+    "net451": {},
+    "net452": {},
+    "net461": {},
+    "netcoreapp1.0": {}
   },
   "dependencies": {
-    "EntityFramework.Commands": "7.0.0-rc1-final",
-    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final"
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
   }
 }

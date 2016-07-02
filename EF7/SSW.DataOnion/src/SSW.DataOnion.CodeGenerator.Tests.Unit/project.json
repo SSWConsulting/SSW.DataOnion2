@@ -2,25 +2,22 @@
   "version": "1.0.0-*",
   "description": "SSW.DataOnion.CodeGenerator.Tests.Unit Class Library",
   "authors": [ "igor" ],
-  "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
-  "frameworks": {
-    "dnx451": {
-      "dependencies": {
-        "xunit.runner.dnx": "2.1.0-rc1-build204",
-        "xunit": "2.1.0",
-        "xunit.runner.visualstudio": "2.1.0"
-      }
-    }
+  "packOptions": {
+    "iconUrl": "http://www.gravatar.com/avatar/81d58a12bc544f1b4ea6f48200f665e0.png",
+    "tags": [ "EF", "DbContext", "SSW", "DataOnion" ],
+    "repository": { "url": "https://github.com/SSWConsulting/SSW.DataOnion2" }
   },
 
-  "resource": "Resources/**/*.*",
+  "buildOptions": { "embed": "Resources/**/*.*" },
 
-  "commands": {
-    "test": "xunit.runner.dnx"
+  "frameworks": {
+    "net451": {},
+    "net452": {},
+    "net461": {}
   },
   "dependencies": {
-    "SSW.DataOnion.CodeGenerator": "1.0.0-alpha-1"
+    "SSW.DataOnion.CodeGenerator": "1.0.0",
+    "xunit": "2.1.0",
+    "xunit.runner.visualstudio": "2.1.0"
   }
 } 
