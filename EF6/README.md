@@ -5,7 +5,7 @@
 1. Add **SSW.DataOnion.DependencyResolution.Autofac.EF6** nuget package to your UI project:
     
 	```sh
-    Install-Package SSW.DataOnion.DependencyResolution.Autofac.EF6 �Pre
+    Install-Package SSW.DataOnion.DependencyResolution.Autofac.EF6
     ```
 
 2. Open your **Startup.cs** file or file used to configure your Autofac contrainer
@@ -50,7 +50,7 @@ Congratulations, you are now ready to use DataOnion2!!!
 1. Add **SSW.DataOnion.Core.EF6** nuget package to your UI or DependencyResolution project:
     
 	```sh
-    Install-Package SSW.DataOnion.Core.EF6 �Pre
+    Install-Package SSW.DataOnion.Core.EF6
 	```
 
 2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
@@ -145,7 +145,7 @@ This step is optional. DbContext partial class will be automatically generated b
 1. Add **SSW.DataOnion.DbContextGenerator.EF6** nuget package to project that will contain your DbContext (i.e YourNamespace.Data) :
 
     ```sh
-    Install-Package SSW.DataOnion.DbContextGenerator.EF6 �Pre
+    Install-Package SSW.DataOnion.DbContextGenerator.EF6
     ```
 2. Once package is installed, you will get readme.txt file with further instructions
 
