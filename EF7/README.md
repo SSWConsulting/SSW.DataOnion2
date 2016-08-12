@@ -5,7 +5,7 @@
 1. Add **SSW.DataOnion.DependencyResolution.Microsoft** nuget package to your UI project:
     
 	```sh
-    Install-Package SSW.DataOnion.DependencyResolution.Microsoft �Pre
+    Install-Package SSW.DataOnion.DependencyResolution.Microsoft
     ```
 
 2. Open your **Startup.cs** file and go to ConfigureServices method
@@ -48,7 +48,7 @@
 1. Add **SSW.DataOnion.DependencyResolution.Autofac** nuget package to your UI project:
     
 	```sh
-    Install-Package SSW.DataOnion.DependencyResolution.Autofac �Pre
+    Install-Package SSW.DataOnion.DependencyResolution.Autofac
     ```
 
 2. Open your **Startup.cs** file or file used to configure your Autofac contrainer
@@ -90,7 +90,7 @@
 1. Add **SSW.DataOnion.Core** nuget package to your UI or DependencyResolution project:
     
 	```sh
-    Install-Package SSW.DataOnion.Core �Pre
+    Install-Package SSW.DataOnion.Core
 	```
 
 2. Implement **IRepositoryResolver** interface (OPTIONAL - use it only if you are planning to use unit of work pattern)
@@ -188,7 +188,7 @@ This step is optional. DbContext partial class will be automatically generated b
 1. Add **SSW.DataOnion.CodeGeneration** nuget package to project that will contain your DbContext (i.e YourNamespace.Data) :
 
     ```sh
-    Install-Package SSW.DataOnion.CodeGenerator �Pre
+    Install-Package SSW.DataOnion.CodeGenerator
     ```
 2. Register custom data onion command in your  **project.son**  file:
 
