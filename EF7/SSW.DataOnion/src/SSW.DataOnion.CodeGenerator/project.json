@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "DataOnion code generator for DbContext which helps to set it up for Migrations",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
   "projectUrl": "https://github.com/SSWConsulting/SSW.DataOnion2",
@@ -10,7 +10,7 @@
   },
 
   "dependencies": {
-    "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
+    "Microsoft.Extensions.PlatformAbstractions": "1.1.0",
     "Serilog.Framework.Logging": "1.0.0-rc1-final-10078",
     "FluentCommandLineParser": "1.4.3"
   },

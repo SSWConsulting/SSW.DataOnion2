@@ -15,7 +15,7 @@ namespace SSW.DataOnion.Core
 
         private static ILogger _logger = Log.ForContext<SqlDbCreator>();
 
-        public SqlDbCreator(ISqlServerConnection connection, IMigrationsModelDiffer modelDiffer, IMigrationsSqlGenerator migrationsSqlGenerator, IMigrationCommandExecutor migrationCommandExecutor, IModel model, IRawSqlCommandBuilder rawSqlCommandBuilder) : base(connection, modelDiffer, migrationsSqlGenerator, migrationCommandExecutor, model, rawSqlCommandBuilder)
+        public SqlDbCreator(ISqlServerConnection connection, IMigrationsModelDiffer modelDiffer, IMigrationsSqlGenerator migrationsSqlGenerator, IMigrationCommandExecutor migrationCommandExecutor, IModel model, IRawSqlCommandBuilder rawSqlCommandBuilder, IExecutionStrategyFactory sqlExecutionStrategyFactory) : base(connection, modelDiffer, migrationsSqlGenerator, migrationCommandExecutor, model, rawSqlCommandBuilder, sqlExecutionStrategyFactory)
         {
             this._connection = connection;
         }

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Set of Interfaces for DataOnion",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
   "packOptions": {
@@ -14,6 +14,6 @@
     "netcoreapp1.0": {}
   },
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0"
   }
 }

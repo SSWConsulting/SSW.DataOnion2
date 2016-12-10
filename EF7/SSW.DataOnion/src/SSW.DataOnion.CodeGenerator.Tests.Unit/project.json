@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "1.0.4",
   "description": "SSW.DataOnion.CodeGenerator.Tests.Unit Class Library",
   "authors": [ "igor" ],
   "packOptions": {
@@ -16,7 +16,7 @@
     "net461": {}
   },
   "dependencies": {
-    "SSW.DataOnion.CodeGenerator": "1.0.0",
+    "SSW.DataOnion.CodeGenerator": "1.0.4",
     "xunit": "2.1.0",
     "xunit.runner.visualstudio": "2.1.0"
   }

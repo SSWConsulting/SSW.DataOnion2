@@ -1,20 +1,22 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "SSW.DataOnion.Sample.Data Class Library",
   "authors": [ "igor" ],
 
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
-    "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
-    "SSW.DataOnion.Sample.Entities": "1.0.0",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0",
-    "SSW.DataOnion.Interfaces": "1.0.0"
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
+    "SSW.DataOnion.Sample.Entities": "1.0.4",
+    "SSW.DataOnion.Interfaces": "1.0.4",
+    "Microsoft.EntityFrameworkCore.Relational": "1.1.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "System.Linq": "4.3.0",
+    "System.Text.RegularExpressions": "4.3.0"
   },
 
   "tools": {
     "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview2-final",
+      "version": "1.1.0-preview4-final",
       "imports": [
         "portable-net45+win8+dnxcore50",
         "portable-net45+win8"
@@ -25,28 +27,33 @@
   "frameworks": {
     "net451": {
       "dependencies": {
-        "SSW.DataOnion.CodeGenerator": "1.0.0"
+        "SSW.DataOnion.CodeGenerator": "1.0.4",
+        "System.Collections": "4.3.0",
+        "System.Reflection": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "net452": {
       "dependencies": {
-        "SSW.DataOnion.CodeGenerator": "1.0.0"
+        "SSW.DataOnion.CodeGenerator": "1.0.4",
+        "System.Collections": "4.3.0",
+        "System.Reflection": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "net461": {
       "dependencies": {
-        "SSW.DataOnion.CodeGenerator": "1.0.0"
+        "SSW.DataOnion.CodeGenerator": "1.0.4",
+        "System.Collections": "4.3.0",
+        "System.Reflection": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "netcoreapp1.0": {
-      "dependencies": {
-        "System.Reflection": "4.1.0",
-        "System.Runtime": "4.1.0",
-        "System.Collections": "4.0.11",
-        "System.Linq": "4.1.0",
-        "System.Text.RegularExpressions": "4.1.0",
-        "System.Runtime.InteropServices": "4.1.0"
-      }
+      "dependencies": {      }
     }
   }
 }
