@@ -8,7 +8,7 @@
     "repository": { "url": "https://github.com/SSWConsulting/SSW.DataOnion2" }
   },
   "dependencies": {
-    "SSW.DataOnion.Core": "1.1.0",
+    "SSW.DataOnion.Core": "1.0.4",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0"
   },
 
