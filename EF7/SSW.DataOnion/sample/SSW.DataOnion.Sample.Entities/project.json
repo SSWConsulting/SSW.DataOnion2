@@ -1,32 +1,38 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "SSW.DataOnion.Sample.Entities Class Library",
   "authors": [ "igor" ],
   "frameworks": {
     "net451": {
       "dependencies": {
-        "FluentCommandLineParser": "1.4.3"
+        "FluentCommandLineParser": "1.4.3",
+        "System.Collections": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "net452": {
       "dependencies": {
-        "FluentCommandLineParser": "1.4.3"
+        "FluentCommandLineParser": "1.4.3",
+        "System.Collections": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "net461": {
       "dependencies": {
-        "FluentCommandLineParser": "1.4.3"
+        "FluentCommandLineParser": "1.4.3",
+        "System.Collections": "4.3.0",
+        "System.Runtime": "4.3.0",
+        "System.Runtime.InteropServices": "4.3.0"
       }
     },
     "netcoreapp1.0": {
-      "dependencies": {
-        "System.Runtime": "4.1.0",
-        "System.Collections": "4.0.11",
-        "System.Linq": "4.1.0",
-        "System.Text.RegularExpressions": "4.1.0",
-        "System.Runtime.InteropServices": "4.1.0"
-      }
+      "dependencies": {      }
     }
   },
-  "dependencies": { }
+  "dependencies": {
+    "System.Linq": "4.3.0",
+    "System.Text.RegularExpressions": "4.3.0"
+  }
 }

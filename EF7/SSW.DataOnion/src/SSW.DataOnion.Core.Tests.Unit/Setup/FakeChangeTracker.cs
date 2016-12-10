@@ -10,11 +10,7 @@ namespace SSW.DataOnion.Core.Tests.Unit.Setup
 {
     public class FakeChangeTracker : ChangeTracker
     {
-        public FakeChangeTracker(
-            IStateManager stateManager, 
-            IChangeDetector changeDetector, 
-            IEntityEntryGraphIterator graphIterator, 
-            DbContext context) : base(stateManager, changeDetector, graphIterator, context)
+        public FakeChangeTracker(DbContext context) : base(context)
         {
         }
 

@@ -1,5 +1,5 @@
 ﻿{
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Default Microsoft Resolver Extensions for DataOnion",
   "authors": [ "Igor Goldobin", "Brendan Richards" ],
   "packOptions": {
@@ -8,8 +8,8 @@
     "repository": { "url": "https://github.com/SSWConsulting/SSW.DataOnion2" }
   },
   "dependencies": {
-    "SSW.DataOnion.Core": "1.0.0",
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0"
+    "SSW.DataOnion.Core": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0"
   },
 
   "frameworks": {

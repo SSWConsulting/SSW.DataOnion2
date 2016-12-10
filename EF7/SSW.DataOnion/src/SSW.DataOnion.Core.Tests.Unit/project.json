@@ -1,17 +1,17 @@
-﻿{
-  "version": "1.0.0-*",
+{
+  "version": "1.0.4",
   "description": "SSW.DataOnion.Core.Tests.Unit Class Library",
   "authors": [ "igor" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
   "dependencies": {
-    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
-    "Microsoft.EntityFrameworkCore.Relational": "1.0.0",
-    "SSW.DataOnion.Interfaces": "1.0.0",
-    "SSW.DataOnion.Core": "1.0.0",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0"
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
+    "Microsoft.EntityFrameworkCore.Relational": "1.1.0",
+    "SSW.DataOnion.Interfaces": "1.1.0",
+    "SSW.DataOnion.Core": "1.1.0",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0"
   },
   "frameworks": {
     "net451": {
@@ -19,7 +19,7 @@
         "xunit.runners": "2.0.0",
         "xunit": "2.1.0",
         "xunit.runner.visualstudio": "2.1.0",
-        "Moq": "4.2.1510.2205",
+        "Moq": "4.5.28",
         "FluentAssertions": "4.2.2"
       }
     },
@@ -28,7 +28,7 @@
         "xunit.runners": "2.0.0",
         "xunit": "2.1.0",
         "xunit.runner.visualstudio": "2.1.0",
-        "Moq": "4.2.1510.2205",
+        "Moq": "4.5.28",
         "FluentAssertions": "4.2.2"
       }
     },
@@ -37,7 +37,7 @@
         "xunit.runners": "2.0.0",
         "xunit": "2.1.0",
         "xunit.runner.visualstudio": "2.1.0",
-        "Moq": "4.2.1510.2205",
+        "Moq": "4.5.28",
         "FluentAssertions": "4.2.2"
       }
     }

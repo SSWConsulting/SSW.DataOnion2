@@ -20,11 +20,7 @@ namespace SSW.DataOnion.Core.Tests.Unit.Setup
 
         public Guid InstanceId { get; set; }
 
-        public override ChangeTracker ChangeTracker
-            => new FakeChangeTracker(
-                new Mock<IStateManager>().Object,
-                new Mock<IChangeDetector>().Object,
-                new Mock<IEntityEntryGraphIterator>().Object, this);
+        public override ChangeTracker ChangeTracker => new FakeChangeTracker(this);
 
         public override DatabaseFacade Database => new FakeDatabaseFacadeWithCreateDatabase(this);
 
